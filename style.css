@@ -156,7 +156,7 @@ img, svg { display: block; }
   .grid--3, .steps, .contact { grid-template-columns: minmax(0, 1fr); }
   .card { padding: 24px 22px 28px; }
   .products { padding: 28px 22px; gap: 32px; }
-  .links a { grid-template-columns: 64px 1fr auto; font-size: 19px; }
+  .links a { grid-template-columns: 92px 1fr auto; font-size: 19px; }
   .foot { padding-top: 96px; }
 }
 
