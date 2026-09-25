@@ -70,7 +70,7 @@ img, svg { display: block; }
 .top__nav { display: flex; align-items: center; gap: 28px; font: 500 13px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; }
 .top__nav a { text-decoration: none; color: var(--mute); transition: color .2s; }
 .top__nav a:hover { color: var(--ink); }
-.top__nav .top__cta { color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: 4px; }
+.top__nav .top__cta { color: var(--ink); }
 
 /* ---------- hero */
 .hero__frame { padding: 36px 48px 32px; }
