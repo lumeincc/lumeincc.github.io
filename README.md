@@ -2,7 +2,7 @@
 
 The LUME INC. site.
 
-**[→ bogdank-dev.github.io](https://bogdank-dev.github.io/)** · **[RU](https://bogdank-dev.github.io/ru/)**
+**[→ lumeincc.github.io](https://lumeincc.github.io/)** · **[RU](https://lumeincc.github.io/ru/)**
 
 Static. No build step. GitHub Pages serves `main` as is.
 
