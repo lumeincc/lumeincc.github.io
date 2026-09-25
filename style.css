@@ -71,6 +71,8 @@ img, svg { display: block; }
 .top__nav a { text-decoration: none; color: var(--mute); transition: color .2s; }
 .top__nav a:hover { color: var(--ink); }
 .top__nav .top__cta { color: var(--ink); }
+.lang { display: inline-flex; align-items: center; gap: 6px; padding-left: 28px; border-left: 1px solid var(--line); color: var(--line); }
+.lang a[aria-current="page"] { color: var(--ink); }
 
 /* ---------- hero */
 .hero__frame { padding: 36px 48px 32px; }
@@ -147,7 +149,9 @@ img, svg { display: block; }
 @media (max-width: 640px) {
   :root { --gutter: 16px; --mark: 14px; }
   body { font-size: 17px; }
-  .top__nav a:not(.top__cta) { display: none; }
+  .top__nav > a:not(.top__cta) { display: none; }
+  .top__nav { gap: 20px; }
+  .lang { padding-left: 20px; }
   .hero__frame { padding: 24px 20px 22px; }
   .hero__title { margin: 48px 0 28px; }
   .hero__text { font-size: 18px; }
