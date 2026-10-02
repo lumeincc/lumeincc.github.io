@@ -111,18 +111,17 @@
     el.replaceChildren(svg);
   });
 
-  // Hero board: an LED dot grid with a terminal cursor. Words are erased and typed
-  // letter by letter. Lit dots step aside from the pointer and scatter on a click.
-  // The service keys pick the word; left alone, the board cycles through them.
+  // Hero board: an LED dot grid with a terminal cursor. It cycles through its words,
+  // erasing and typing them letter by letter. Lit dots step aside from the pointer
+  // and scatter on a click.
   var board = document.querySelector("[data-board]");
   if (board && board.querySelector("canvas").getContext) initBoard(board);
 
   function initBoard(root) {
     var canvas = root.querySelector("canvas"), ctx = canvas.getContext("2d");
     var area = root.closest(".hero__frame") || root;
-    var keys = [].slice.call(document.querySelectorAll("[data-key]"));
     var home = root.dataset.board;
-    var words = [home].concat(keys.map(function (k) { return k.dataset.key; }));
+    var words = [home].concat((root.dataset.words || "").split("|").filter(Boolean));
     var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     var ROWS = 9, REACH = 4.5, BLAST = 14;
 
@@ -196,7 +195,6 @@
     }
 
     function show(next) {
-      keys.forEach(function (k) { k.setAttribute("aria-pressed", String(k.dataset.key === next)); });
       if (next === target) return;
       target = next;
       if (!typing) tick();
@@ -282,15 +280,9 @@
       });
     }
 
-    // keys: hover, focus or press types the word; the auto cycle waits a while after that
+    // the cycle waits a while after a click on the board
     var hold = 0, idx = 0;
     function pause(ms) { hold = Date.now() + ms; }
-    keys.forEach(function (k) {
-      function pick() { show(k.dataset.key); idx = words.indexOf(target); pause(8000); }
-      k.addEventListener("click", pick);
-      k.addEventListener("focus", pick);
-      k.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") pick(); });
-    });
 
     if (!still) {
       setInterval(function () {
