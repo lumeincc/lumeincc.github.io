@@ -17,4 +17,4 @@ Static. No build step. GitHub Pages serves `main` as is.
 
 Pixel text is any element with `data-px="TEXT"`. Add `data-mode="dot"` for round dots, `data-cursor` for the blinking block, `data-cell` for size.
 
-The hero board is a canvas inside `[data-board="LUME INC."]`. Each `[data-key="WORD"]` button puts its word on the board; without input the board cycles through them. Dots step aside from the pointer and scatter on a click. With reduced motion it just switches words.
+The hero board is a canvas inside `[data-board="LUME INC."]`. Each `[data-key="WORD"]` button types its word on the board: the cursor erases back to what the two words share and types the rest. Without input the board cycles through the words. Dots step aside from the pointer and scatter on a click. With reduced motion words switch at once.

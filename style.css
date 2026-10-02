@@ -82,8 +82,7 @@ img, svg { display: block; }
 }
 
 /* ---------- top bar */
-.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 28px; padding-bottom: 28px; }
-.top__logo { display: inline-flex; padding: 6px 0; }
+.top { display: flex; align-items: center; justify-content: flex-end; gap: 16px; padding-top: 28px; padding-bottom: 28px; }
 .top__nav { display: flex; align-items: center; gap: 28px; font: 500 13px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; }
 .top__nav a { text-decoration: none; color: var(--mute); transition: color .2s; }
 .top__nav a:hover { color: var(--ink); }
