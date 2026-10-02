@@ -111,9 +111,9 @@
     el.replaceChildren(svg);
   });
 
-  // Hero board: an LED dot grid. Lit dots spring into the letters of the current word,
-  // step aside from the pointer and scatter on a click. The service keys swap the word;
-  // left alone, the board cycles through them.
+  // Hero board: an LED dot grid with a terminal cursor. Words are erased and typed
+  // letter by letter. Lit dots step aside from the pointer and scatter on a click.
+  // The service keys pick the word; left alone, the board cycles through them.
   var board = document.querySelector("[data-board]");
   if (board && board.querySelector("canvas").getContext) initBoard(board);
 
@@ -126,20 +126,19 @@
     var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     var ROWS = 9, REACH = 4.5, BLAST = 14;
 
-    // Cells of a word in grid units: one column and one row of margin, column by column.
-    function layout(text) {
-      var cells = [], x = 1;
-      for (var i = 0; i < text.length; i++) {
-        var rows = (DOTS[text[i]] || DOTS[" "]).split(" "), w = rows[0].length;
-        for (var c = 0; c < w; c++) for (var r = 0; r < 7; r++) if (rows[r][c] === "1") cells.push({ x: x + c, y: r + 1 });
-        x += w + 1;
-      }
-      return { cells: cells, cursor: x };
+    // Left edge of every letter of a word, in grid columns (one column of margin),
+    // and the column where the cursor goes after it.
+    function edges(text) {
+      var xs = [], x = 1;
+      for (var i = 0; i < text.length; i++) { xs.push(x); x += glyph(text[i])[0].length + 1; }
+      return { xs: xs, cursor: x };
     }
-    var COLS = Math.max.apply(null, words.map(function (w) { return layout(w).cursor; })) + 5;
+    function glyph(ch) { return (DOTS[ch] || DOTS[" "]).split(" "); }
+    var COLS = Math.max.apply(null, words.map(function (w) { return edges(w).cursor; })) + 5;
 
     var cell = 1, dpr = 1, ink = "#000", grid = document.createElement("canvas");
-    var parts = [], word = "", cur = { x: 1, to: 1 }, ptr = null, blink = true, running = false, seen = true;
+    var parts = [], shown = "", target = "", cur = { x: 1, to: 1 };
+    var ptr = null, blink = true, running = false, seen = true, typing = null, quiet = 0;
 
     function resize() {
       var w = root.clientWidth;
@@ -165,51 +164,42 @@
       c.arc(cx, cy, r * s, 0, 6.2832);
     }
 
-    function aim(p, t) {
-      p.tx = t.x; p.ty = t.y;
-      p.wait = Math.round(t.x / COLS * 14 + Math.random() * 4); // a wave from left to right
+    // One typed letter: its dots land with a small jolt.
+    function put(i, ch) {
+      var rows = glyph(ch), x0 = edges(shown).xs[i];
+      for (var c = 0; c < rows[0].length; c++) for (var r = 0; r < 7; r++) {
+        if (rows[r][c] !== "1") continue;
+        var tx = x0 + c, ty = r + 1, jx = still ? 0 : (Math.random() - 0.5) * 0.6, jy = still ? 0 : -0.4 - Math.random() * 0.5;
+        parts.push({ i: i, x: tx + jx, y: ty + jy, vx: 0, vy: 0, tx: tx, ty: ty, wait: 0 });
+      }
     }
 
-    function make(x, y) { return { x: x, y: y, vx: 0, vy: 0, tx: x, ty: y, wait: 0, a: 1, gone: false }; }
-
-    function show(next) {
-      if (next === word) return;
-      var first = !word, l = layout(next), t = l.cells;
-      var live = parts.filter(function (p) { return !p.gone; }).sort(function (a, b) { return a.x - b.x || a.y - b.y; });
-      var n = live.length, out = [];
-      word = next;
-      if (!n) {
-        // first word: dots rise from under the board
-        t.forEach(function (c) { var p = make(c.x, ROWS + 1 + Math.random() * 4); aim(p, c); out.push(p); });
-      } else if (t.length >= n) {
-        // more dots needed: some split in two
-        var used = [];
-        t.forEach(function (c, i) {
-          var j = Math.floor(i * n / t.length), p = used[j] ? make(live[j].x, live[j].y) : live[j];
-          used[j] = true; aim(p, c); out.push(p);
-        });
+    // Erase back to what the two words share, then type the rest. A space only moves the cursor.
+    function tick() {
+      typing = null;
+      if (target.indexOf(shown) !== 0) {
+        var i = shown.length - 1;
+        parts = parts.filter(function (p) { return p.i !== i; });
+        shown = shown.slice(0, i);
+        typing = setTimeout(tick, still ? 0 : 38 + Math.random() * 20);
+      } else if (shown.length < target.length) {
+        shown = target.slice(0, shown.length + 1);
+        put(shown.length - 1, shown[shown.length - 1]);
+        typing = setTimeout(tick, still ? 0 : 70 + Math.random() * 70);
       } else {
-        // fewer dots needed: the extra ones merge into a neighbour and fade
-        var taken = [];
-        live.forEach(function (p, j) {
-          var i = Math.floor(j * t.length / n);
-          aim(p, t[i]);
-          if (taken[i]) p.gone = true; else taken[i] = true;
-          out.push(p);
-        });
+        quiet = Date.now() + (shown === home ? 3200 : 1800); // how long a finished word stays up
       }
-      parts = out.concat(parts.filter(function (p) { return p.gone && out.indexOf(p) < 0; }));
-      cur.to = l.cursor;
-      if (first) cur.x = cur.to;
-      keys.forEach(function (k) { k.setAttribute("aria-pressed", String(k.dataset.key === next)); });
-      if (still) settle();
+      cur.to = edges(shown).cursor;
+      if (still) cur.x = cur.to;
+      blink = true;
       wake();
     }
 
-    function settle() {
-      parts = parts.filter(function (p) { return !p.gone; });
-      parts.forEach(function (p) { p.x = p.tx; p.y = p.ty; p.vx = p.vy = 0; p.wait = 0; });
-      cur.x = cur.to;
+    function show(next) {
+      keys.forEach(function (k) { k.setAttribute("aria-pressed", String(k.dataset.key === next)); });
+      if (next === target) return;
+      target = next;
+      if (!typing) tick();
     }
 
     function step() {
@@ -224,11 +214,11 @@
         }
         p.vx = (p.vx + ax) * 0.82; p.vy = (p.vy + ay) * 0.82;
         p.x += p.vx; p.y += p.vy;
-        if (p.gone) p.a -= 0.05;
-        if (Math.abs(p.vx) + Math.abs(p.vy) > 0.003 || Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y) > 0.01) busy = true;
+        var moving = Math.abs(p.vx) + Math.abs(p.vy) > 0.003, off = Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y) > 0.01;
+        if (moving || (off && !ptr)) busy = true; // held still by the pointer counts as settled
+        else if (!off) { p.x = p.tx; p.y = p.ty; }
       });
-      parts = parts.filter(function (p) { return p.a > 0; });
-      cur.x += (cur.to - cur.x) * 0.12;
+      cur.x += (cur.to - cur.x) * 0.45;
       if (Math.abs(cur.to - cur.x) > 0.01) busy = true; else cur.x = cur.to;
       return busy;
     }
@@ -249,18 +239,15 @@
         }
       }
       ctx.globalAlpha = 1; ctx.beginPath();
-      parts.forEach(function (p) { if (!p.gone) dot(ctx, p.x, p.y, 0.4); });
-      if (blink || still) for (var cx = 0; cx < 4; cx++) for (var cy = 1; cy < 8; cy++) dot(ctx, cur.x + cx, cy, 0.4);
+      parts.forEach(function (p) { dot(ctx, p.x, p.y, 0.4); });
+      // the cursor stays solid while typing and blinks when the word is done
+      if (blink || typing || still) for (var cx = 0; cx < 4; cx++) for (var cy = 1; cy < 8; cy++) dot(ctx, cur.x + cx, cy, 0.4);
       ctx.fill();
-      parts.forEach(function (p) {
-        if (!p.gone) return;
-        ctx.globalAlpha = Math.max(p.a, 0); ctx.beginPath(); dot(ctx, p.x, p.y, 0.4); ctx.fill();
-      });
-      ctx.globalAlpha = 1;
     }
 
     function wake() {
-      if (running || !seen) return;
+      if (running) return;
+      if (!seen) { paint(); return; }
       running = true;
       requestAnimationFrame(function frame() {
         var busy = step();
@@ -295,11 +282,11 @@
       });
     }
 
-    // keys: hover, focus or press shows the word; the auto cycle waits a while after that
-    var hold = 0, idx = 0, skip = 0;
+    // keys: hover, focus or press types the word; the auto cycle waits a while after that
+    var hold = 0, idx = 0;
     function pause(ms) { hold = Date.now() + ms; }
     keys.forEach(function (k) {
-      function pick() { show(k.dataset.key); idx = words.indexOf(word); pause(8000); }
+      function pick() { show(k.dataset.key); idx = words.indexOf(target); pause(8000); }
       k.addEventListener("click", pick);
       k.addEventListener("focus", pick);
       k.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") pick(); });
@@ -307,13 +294,12 @@
 
     if (!still) {
       setInterval(function () {
-        if (!seen || document.hidden || Date.now() < hold) return;
-        if (skip-- > 0) return;
+        var now = Date.now();
+        if (!target || !seen || document.hidden || typing || now < hold || now < quiet) return;
         idx = (idx + 1) % words.length;
         show(words[idx]);
-        skip = word === home ? 1 : 0; // the name stays up twice as long
-      }, 2200);
-      setInterval(function () { blink = !blink; if (!running) paint(); }, 550);
+      }, 250);
+      setInterval(function () { blink = !blink; if (!running && !typing) paint(); }, 530);
     }
 
     if ("IntersectionObserver" in window) {
@@ -323,7 +309,7 @@
     else window.addEventListener("resize", resize);
 
     resize();
-    show(home);
-    skip = 1;
+    // a beat of blinking cursor on an empty board, then the name types itself
+    setTimeout(function () { show(home); }, still ? 0 : 600);
   }
 })();
