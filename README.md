@@ -11,8 +11,10 @@ Static. No build step. GitHub Pages serves `main` as is.
 | `index.html` | English page. Copy lives here |
 | `ru/index.html` | Russian page. Same markup, same assets. Edit both when the copy changes |
 | `style.css` | White page, one mono face (JetBrains Mono) for all text, crop-mark frames |
-| `site.js` | Draws the pixel type (Latin and Cyrillic) and the dot-matrix numbers from one 5x7 font |
+| `site.js` | Draws the pixel type (Latin and Cyrillic) and the dot-matrix numbers from one 5x7 font, and runs the hero board |
 | `fonts/` | JetBrains Mono, self-hosted (Latin and Cyrillic, SIL OFL 1.1). No Google Fonts request |
 | `favicon.svg`, `og.png` | Tab icon and link preview |
 
 Pixel text is any element with `data-px="TEXT"`. Add `data-mode="dot"` for round dots, `data-cursor` for the blinking block, `data-cell` for size.
+
+The hero board is a canvas inside `[data-board="LUME INC."]`. Each `[data-key="WORD"]` button puts its word on the board; without input the board cycles through them. Dots step aside from the pointer and scatter on a click. With reduced motion it just switches words.
