@@ -51,11 +51,10 @@
   var NS = "http://www.w3.org/2000/svg";
 
   function draw(text, opts) {
-    var font = opts.dots ? DOTS : FONT, cells = [], x = 0, colonX = null;
+    var font = opts.dots ? DOTS : FONT, cells = [], x = 0;
     for (var i = 0; i < text.length; i++) {
       var ch = text[i], rows = (font[ch] || font[" "]).split(" "), w = rows[0].length;
-      if (ch === ":") colonX = x;
-      for (var r = 0; r < 7; r++) for (var c = 0; c < w; c++) if (rows[r][c] === "1") cells.push([x + c, r, ch === ":"]);
+      for (var r = 0; r < 7; r++) for (var c = 0; c < w; c++) if (rows[r][c] === "1") cells.push([x + c, r]);
       x += w + 1;
     }
     var cols = x - 1, cur = opts.cursor ? 6 : 0;
@@ -71,7 +70,6 @@
       cells.forEach(function (p) {
         var dot = document.createElementNS(NS, "circle");
         dot.setAttribute("cx", p[0] + 0.5); dot.setAttribute("cy", p[1] + 0.5); dot.setAttribute("r", 0.4);
-        if (p[2]) dot.setAttribute("class", "colon");
         svg.appendChild(dot);
       });
     } else {
@@ -99,20 +97,6 @@
       label: el.dataset.label
     }));
   });
-
-  // Local time in Qazaqstan (UTC+5, no daylight saving), dot matrix.
-  var clocks = document.querySelectorAll("[data-clock]"), shown = "";
-  function tick() {
-    var t = new Date(Date.now() + 5 * 3600e3);
-    var hm = ("0" + t.getUTCHours()).slice(-2) + ":" + ("0" + t.getUTCMinutes()).slice(-2);
-    if (hm !== shown) {
-      shown = hm;
-      clocks.forEach(function (el) {
-        el.replaceChildren(draw(hm, { cell: +el.dataset.cell || 6, dots: true, label: (el.dataset.label || "Local time in Qazaqstan") + " " + hm }));
-      });
-    }
-  }
-  if (clocks.length) { tick(); setInterval(tick, 1000); }
 
   // "In the works": a row of dots with a wave running through it.
   document.querySelectorAll("[data-loader]").forEach(function (el) {

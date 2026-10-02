@@ -18,10 +18,8 @@
 <link rel="alternate" hreflang="ru" href="https://lumeincc.github.io/ru/">
 <link rel="alternate" hreflang="x-default" href="https://lumeincc.github.io/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Nunito:wght@300;400;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="preload" href="fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -46,14 +44,12 @@
     <div class="frame hero__frame">
       <div class="hero__row mono">
         <span>LUME INC. / Qazaqstan</span>
-        <span class="hero__clock"><span data-clock data-cell="3"></span><span>UTC+5</span></span>
       </div>
       <div class="hero__title"><span data-px="LUME INC." data-cell="14" data-cursor data-label="LUME INC."></span></div>
-      <h1 class="hero__lead">We build websites, apps and bots for business.</h1>
-      <p class="hero__text">Full cycle in one team: analysis, design, development, launch and support. You get a working product and its source code.</p>
+      <h1 class="hero__lead">Websites, apps and bots for business.</h1>
+      <p class="hero__text">Turnkey: from brief to launch and support.</p>
       <div class="hero__actions">
         <a class="btn" href="#contact">Discuss a project <span aria-hidden="true">→</span></a>
-        <a class="btn btn--ghost" href="#services">What we build</a>
       </div>
       <ul class="hero__foot mono" aria-label="Services">
         <li>Websites</li><li>Web apps</li><li>Mobile apps</li><li>Telegram bots</li><li>Backend</li><li>Automation</li>
@@ -63,11 +59,7 @@
 
   <!-- services -->
   <section class="section wrap" id="services" aria-labelledby="services-h">
-    <div class="section__head">
-      <span class="mono">01 / Services</span>
-      <h2 id="services-h"><span data-px="WHAT WE BUILD" data-cell="6" data-label="What we build"></span></h2>
-      <p class="section__lead">A single task or the whole project. One team runs the full cycle.</p>
-    </div>
+    <h2 class="section__head" id="services-h"><span data-px="01" data-mode="dot" data-cell="3"></span><span class="mono">Services</span></h2>
     <div class="grid grid--3">
       <article class="card frame">
         <span data-px="01" data-mode="dot" data-cell="7"></span>
@@ -110,11 +102,7 @@
 
   <!-- problems -->
   <section class="section wrap" id="problems" aria-labelledby="problems-h">
-    <div class="section__head">
-      <span class="mono">02 / Problems</span>
-      <h2 id="problems-h"><span data-px="WHAT WE SOLVE" data-cell="6" data-label="What we solve"></span></h2>
-      <p class="section__lead">We start from the business problem, not the tech stack.</p>
-    </div>
+    <h2 class="section__head" id="problems-h"><span data-px="02" data-mode="dot" data-cell="3"></span><span class="mono">Problems</span></h2>
     <div class="tasks__head mono" aria-hidden="true"><span>Problem</span><span>Solution</span></div>
     <ul class="tasks">
       <li class="task">
@@ -152,11 +140,7 @@
 
   <!-- process -->
   <section class="section wrap" id="process" aria-labelledby="process-h">
-    <div class="section__head">
-      <span class="mono">03 / Process</span>
-      <h2 id="process-h"><span data-px="HOW WE WORK" data-cell="6" data-label="How we work"></span></h2>
-      <p class="section__lead">Four stages. Each one ends with a concrete result.</p>
-    </div>
+    <h2 class="section__head" id="process-h"><span data-px="03" data-mode="dot" data-cell="3"></span><span class="mono">Process</span></h2>
     <ol class="steps">
       <li class="step">
         <span data-px="01" data-mode="dot" data-cell="5"></span>
@@ -199,10 +183,7 @@
 
   <!-- own products -->
   <section class="section wrap" id="products" aria-labelledby="products-h">
-    <div class="section__head">
-      <span class="mono">04 / Products</span>
-      <h2 id="products-h"><span data-px="OWN PRODUCTS" data-cell="6" data-label="Own products"></span></h2>
-    </div>
+    <h2 class="section__head" id="products-h"><span data-px="04" data-mode="dot" data-cell="3"></span><span class="mono">Products</span></h2>
     <div class="frame products">
       <p class="products__text">Beyond client work, LUME INC. builds its own products. The first ones are in development.</p>
       <div class="products__bar">
@@ -214,10 +195,7 @@
 
   <!-- contact -->
   <section class="section wrap" id="contact" aria-labelledby="contact-h">
-    <div class="section__head">
-      <span class="mono">05 / Contact</span>
-      <h2 id="contact-h"><span data-px="LET'S BUILD." data-cell="10" data-cursor data-label="Let's build."></span></h2>
-    </div>
+    <h2 class="section__head" id="contact-h"><span data-px="05" data-mode="dot" data-cell="3"></span><span class="mono">Contact</span></h2>
     <div class="contact">
       <p class="contact__text">Describe the task. We'll reply with a plan, a timeline and a cost estimate.</p>
       <ul class="links">
@@ -225,19 +203,13 @@
         <li><a href="https://github.com/lumeincc"><span class="mono">GitHub</span><span class="links__v">lumeincc</span><span class="links__arr" aria-hidden="true">→</span></a></li>
         <li><a href="https://x.com/lumeinc"><span class="mono">X</span><span class="links__v">@lumeinc</span><span class="links__arr" aria-hidden="true">→</span></a></li>
       </ul>
-      <div class="contact__side">
-        <div class="frame brief">
-          <span class="mono">In your message</span>
-          <ol class="brief__list">
-            <li>What needs to be built</li>
-            <li>Deadline</li>
-            <li>Budget, if you have one</li>
-          </ol>
-        </div>
-        <div class="frame local">
-          <span class="mono">Local time · Qazaqstan</span>
-          <span data-clock data-cell="9" data-label="Local time in Qazaqstan"></span>
-        </div>
+      <div class="frame brief">
+        <span class="mono">In your message</span>
+        <ol class="brief__list">
+          <li><span data-px="01" data-mode="dot" data-cell="3"></span>What needs to be built</li>
+          <li><span data-px="02" data-mode="dot" data-cell="3"></span>Deadline</li>
+          <li><span data-px="03" data-mode="dot" data-cell="3"></span>Budget, if you have one</li>
+        </ol>
       </div>
     </div>
   </section>
@@ -245,9 +217,9 @@
 </main>
 
 <footer class="foot wrap">
-  <span class="mono">LUME INC. <span aria-hidden="true">▪</span> 2026</span>
+  <span class="foot__mark"><span class="mono">LUME INC.</span><span class="mono" aria-hidden="true">▪</span><span data-px="2026" data-mode="dot" data-cell="2"></span></span>
 </footer>
 
-<script src="site.js?v=4"></script>
+<script src="site.js?v=5"></script>
 </body>
 </html>

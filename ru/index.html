@@ -18,10 +18,9 @@
 <link rel="alternate" hreflang="ru" href="https://lumeincc.github.io/ru/">
 <link rel="alternate" hreflang="x-default" href="https://lumeincc.github.io/">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Nunito:wght@300;400;600;700&display=swap">
-<link rel="stylesheet" href="../style.css?v=5">
+<link rel="preload" href="../fonts/jetbrains-mono-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css?v=6">
 </head>
 <body>
 
@@ -46,14 +45,12 @@
     <div class="frame hero__frame">
       <div class="hero__row mono">
         <span>LUME INC. / Казахстан</span>
-        <span class="hero__clock"><span data-clock data-cell="3" data-label="Местное время в Казахстане"></span><span>UTC+5</span></span>
       </div>
       <div class="hero__title"><span data-px="LUME INC." data-cell="14" data-cursor data-label="LUME INC."></span></div>
-      <h1 class="hero__lead">Разрабатываем сайты, приложения и ботов для бизнеса.</h1>
-      <p class="hero__text">Полный цикл в одной команде: анализ, дизайн, разработка, запуск и поддержка. Вы получаете работающий продукт и исходный код.</p>
+      <h1 class="hero__lead">Сайты, приложения и боты для бизнеса.</h1>
+      <p class="hero__text">Под ключ: от задачи до запуска и поддержки.</p>
       <div class="hero__actions">
         <a class="btn" href="#contact">Обсудить проект <span aria-hidden="true">→</span></a>
-        <a class="btn btn--ghost" href="#services">Что мы делаем</a>
       </div>
       <ul class="hero__foot mono" aria-label="Услуги">
         <li>Сайты</li><li>Веб-сервисы</li><li>Мобильные приложения</li><li>Telegram-боты</li><li>Серверная часть</li><li>Автоматизация</li>
@@ -63,11 +60,7 @@
 
   <!-- services -->
   <section class="section wrap" id="services" aria-labelledby="services-h">
-    <div class="section__head">
-      <span class="mono">01 / Услуги</span>
-      <h2 id="services-h"><span data-px="ЧТО МЫ ДЕЛАЕМ" data-cell="6" data-label="Что мы делаем"></span></h2>
-      <p class="section__lead">Берём отдельную задачу или проект целиком. Весь цикл ведёт одна команда.</p>
-    </div>
+    <h2 class="section__head" id="services-h"><span data-px="01" data-mode="dot" data-cell="3"></span><span class="mono">Услуги</span></h2>
     <div class="grid grid--3">
       <article class="card frame">
         <span data-px="01" data-mode="dot" data-cell="7"></span>
@@ -110,11 +103,7 @@
 
   <!-- problems -->
   <section class="section wrap" id="problems" aria-labelledby="problems-h">
-    <div class="section__head">
-      <span class="mono">02 / Задачи</span>
-      <h2 id="problems-h"><span data-px="ЗАДАЧИ И РЕШЕНИЯ" data-cell="6" data-label="Задачи и решения"></span></h2>
-      <p class="section__lead">Начинаем с задачи бизнеса, а не с выбора технологий.</p>
-    </div>
+    <h2 class="section__head" id="problems-h"><span data-px="02" data-mode="dot" data-cell="3"></span><span class="mono">Задачи</span></h2>
     <div class="tasks__head mono" aria-hidden="true"><span>Задача</span><span>Решение</span></div>
     <ul class="tasks">
       <li class="task">
@@ -152,11 +141,7 @@
 
   <!-- process -->
   <section class="section wrap" id="process" aria-labelledby="process-h">
-    <div class="section__head">
-      <span class="mono">03 / Этапы</span>
-      <h2 id="process-h"><span data-px="КАК МЫ РАБОТАЕМ" data-cell="6" data-label="Как мы работаем"></span></h2>
-      <p class="section__lead">Четыре этапа. Каждый заканчивается конкретным результатом.</p>
-    </div>
+    <h2 class="section__head" id="process-h"><span data-px="03" data-mode="dot" data-cell="3"></span><span class="mono">Этапы</span></h2>
     <ol class="steps">
       <li class="step">
         <span data-px="01" data-mode="dot" data-cell="5"></span>
@@ -199,10 +184,7 @@
 
   <!-- own products -->
   <section class="section wrap" id="products" aria-labelledby="products-h">
-    <div class="section__head">
-      <span class="mono">04 / Продукты</span>
-      <h2 id="products-h"><span data-px="НАШИ ПРОДУКТЫ" data-cell="6" data-label="Наши продукты"></span></h2>
-    </div>
+    <h2 class="section__head" id="products-h"><span data-px="04" data-mode="dot" data-cell="3"></span><span class="mono">Продукты</span></h2>
     <div class="frame products">
       <p class="products__text">Помимо заказной разработки, LUME INC. делает собственные продукты. Первые уже в работе.</p>
       <div class="products__bar">
@@ -214,10 +196,7 @@
 
   <!-- contact -->
   <section class="section wrap" id="contact" aria-labelledby="contact-h">
-    <div class="section__head">
-      <span class="mono">05 / Контакты</span>
-      <h2 id="contact-h"><span data-px="ЗА ДЕЛО." data-cell="10" data-cursor data-label="За дело."></span></h2>
-    </div>
+    <h2 class="section__head" id="contact-h"><span data-px="05" data-mode="dot" data-cell="3"></span><span class="mono">Контакты</span></h2>
     <div class="contact">
       <p class="contact__text">Опишите задачу. Ответим планом, сроками и оценкой стоимости.</p>
       <ul class="links">
@@ -225,19 +204,13 @@
         <li><a href="https://github.com/lumeincc"><span class="mono">GitHub</span><span class="links__v">lumeincc</span><span class="links__arr" aria-hidden="true">→</span></a></li>
         <li><a href="https://x.com/lumeinc"><span class="mono">X</span><span class="links__v">@lumeinc</span><span class="links__arr" aria-hidden="true">→</span></a></li>
       </ul>
-      <div class="contact__side">
-        <div class="frame brief">
-          <span class="mono">В сообщении укажите</span>
-          <ol class="brief__list">
-            <li>Что нужно сделать</li>
-            <li>Сроки</li>
-            <li>Бюджет, если он есть</li>
-          </ol>
-        </div>
-        <div class="frame local">
-          <span class="mono">Местное время · Казахстан</span>
-          <span data-clock data-cell="9" data-label="Местное время в Казахстане"></span>
-        </div>
+      <div class="frame brief">
+        <span class="mono">В сообщении укажите</span>
+        <ol class="brief__list">
+          <li><span data-px="01" data-mode="dot" data-cell="3"></span>Что нужно сделать</li>
+          <li><span data-px="02" data-mode="dot" data-cell="3"></span>Сроки</li>
+          <li><span data-px="03" data-mode="dot" data-cell="3"></span>Бюджет, если он есть</li>
+        </ol>
       </div>
     </div>
   </section>
@@ -245,9 +218,9 @@
 </main>
 
 <footer class="foot wrap">
-  <span class="mono">LUME INC. <span aria-hidden="true">▪</span> 2026</span>
+  <span class="foot__mark"><span class="mono">LUME INC.</span><span class="mono" aria-hidden="true">▪</span><span data-px="2026" data-mode="dot" data-cell="2"></span></span>
 </footer>
 
-<script src="../site.js?v=4"></script>
+<script src="../site.js?v=5"></script>
 </body>
 </html>
