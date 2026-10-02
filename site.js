@@ -110,4 +110,220 @@
     }
     el.replaceChildren(svg);
   });
+
+  // Hero board: an LED dot grid. Lit dots spring into the letters of the current word,
+  // step aside from the pointer and scatter on a click. The service keys swap the word;
+  // left alone, the board cycles through them.
+  var board = document.querySelector("[data-board]");
+  if (board && board.querySelector("canvas").getContext) initBoard(board);
+
+  function initBoard(root) {
+    var canvas = root.querySelector("canvas"), ctx = canvas.getContext("2d");
+    var area = root.closest(".hero__frame") || root;
+    var keys = [].slice.call(document.querySelectorAll("[data-key]"));
+    var home = root.dataset.board;
+    var words = [home].concat(keys.map(function (k) { return k.dataset.key; }));
+    var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var ROWS = 9, REACH = 4.5, BLAST = 14;
+
+    // Cells of a word in grid units: one column and one row of margin, column by column.
+    function layout(text) {
+      var cells = [], x = 1;
+      for (var i = 0; i < text.length; i++) {
+        var rows = (DOTS[text[i]] || DOTS[" "]).split(" "), w = rows[0].length;
+        for (var c = 0; c < w; c++) for (var r = 0; r < 7; r++) if (rows[r][c] === "1") cells.push({ x: x + c, y: r + 1 });
+        x += w + 1;
+      }
+      return { cells: cells, cursor: x };
+    }
+    var COLS = Math.max.apply(null, words.map(function (w) { return layout(w).cursor; })) + 5;
+
+    var cell = 1, dpr = 1, ink = "#000", grid = document.createElement("canvas");
+    var parts = [], word = "", cur = { x: 1, to: 1 }, ptr = null, blink = true, running = false, seen = true;
+
+    function resize() {
+      var w = root.clientWidth;
+      if (!w) return;
+      cell = w / COLS;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = grid.width = Math.round(w * dpr);
+      canvas.height = grid.height = Math.round(ROWS * cell * dpr);
+      canvas.style.height = ROWS * cell + "px";
+      ink = getComputedStyle(root).color;
+      // the unlit grid never moves: draw it once per size
+      var g = grid.getContext("2d");
+      g.clearRect(0, 0, grid.width, grid.height);
+      g.fillStyle = ink; g.globalAlpha = 0.09; g.beginPath();
+      for (var x = 0; x < COLS; x++) for (var y = 0; y < ROWS; y++) dot(g, x, y, 0.3);
+      g.fill();
+      paint();
+    }
+
+    function dot(c, x, y, r) {
+      var s = cell * dpr, cx = (x + 0.5) * s, cy = (y + 0.5) * s;
+      c.moveTo(cx + r * s, cy);
+      c.arc(cx, cy, r * s, 0, 6.2832);
+    }
+
+    function aim(p, t) {
+      p.tx = t.x; p.ty = t.y;
+      p.wait = Math.round(t.x / COLS * 14 + Math.random() * 4); // a wave from left to right
+    }
+
+    function make(x, y) { return { x: x, y: y, vx: 0, vy: 0, tx: x, ty: y, wait: 0, a: 1, gone: false }; }
+
+    function show(next) {
+      if (next === word) return;
+      var first = !word, l = layout(next), t = l.cells;
+      var live = parts.filter(function (p) { return !p.gone; }).sort(function (a, b) { return a.x - b.x || a.y - b.y; });
+      var n = live.length, out = [];
+      word = next;
+      if (!n) {
+        // first word: dots rise from under the board
+        t.forEach(function (c) { var p = make(c.x, ROWS + 1 + Math.random() * 4); aim(p, c); out.push(p); });
+      } else if (t.length >= n) {
+        // more dots needed: some split in two
+        var used = [];
+        t.forEach(function (c, i) {
+          var j = Math.floor(i * n / t.length), p = used[j] ? make(live[j].x, live[j].y) : live[j];
+          used[j] = true; aim(p, c); out.push(p);
+        });
+      } else {
+        // fewer dots needed: the extra ones merge into a neighbour and fade
+        var taken = [];
+        live.forEach(function (p, j) {
+          var i = Math.floor(j * t.length / n);
+          aim(p, t[i]);
+          if (taken[i]) p.gone = true; else taken[i] = true;
+          out.push(p);
+        });
+      }
+      parts = out.concat(parts.filter(function (p) { return p.gone && out.indexOf(p) < 0; }));
+      cur.to = l.cursor;
+      if (first) cur.x = cur.to;
+      keys.forEach(function (k) { k.setAttribute("aria-pressed", String(k.dataset.key === next)); });
+      if (still) settle();
+      wake();
+    }
+
+    function settle() {
+      parts = parts.filter(function (p) { return !p.gone; });
+      parts.forEach(function (p) { p.x = p.tx; p.y = p.ty; p.vx = p.vy = 0; p.wait = 0; });
+      cur.x = cur.to;
+    }
+
+    function step() {
+      var busy = false;
+      parts.forEach(function (p) {
+        var ax = 0, ay = 0;
+        if (p.wait > 0) { p.wait--; busy = true; }
+        else { ax = (p.tx - p.x) * 0.075; ay = (p.ty - p.y) * 0.075; }
+        if (ptr) {
+          var dx = p.x - ptr.x, dy = p.y - ptr.y, d = Math.sqrt(dx * dx + dy * dy);
+          if (d < REACH) { var f = (1 - d / REACH) * 0.6 / (d || 1); ax += dx * f; ay += dy * f; }
+        }
+        p.vx = (p.vx + ax) * 0.82; p.vy = (p.vy + ay) * 0.82;
+        p.x += p.vx; p.y += p.vy;
+        if (p.gone) p.a -= 0.05;
+        if (Math.abs(p.vx) + Math.abs(p.vy) > 0.003 || Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y) > 0.01) busy = true;
+      });
+      parts = parts.filter(function (p) { return p.a > 0; });
+      cur.x += (cur.to - cur.x) * 0.12;
+      if (Math.abs(cur.to - cur.x) > 0.01) busy = true; else cur.x = cur.to;
+      return busy;
+    }
+
+    function paint() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(grid, 0, 0);
+      ctx.fillStyle = ink;
+      if (ptr) {
+        // the grid lights up a little around the pointer
+        for (var x = Math.max(0, Math.floor(ptr.x - REACH)); x <= Math.min(COLS - 1, ptr.x + REACH); x++) {
+          for (var y = Math.max(0, Math.floor(ptr.y - REACH)); y <= Math.min(ROWS - 1, ptr.y + REACH); y++) {
+            var d = Math.sqrt((x - ptr.x) * (x - ptr.x) + (y - ptr.y) * (y - ptr.y));
+            if (d >= REACH) continue;
+            ctx.globalAlpha = 0.28 * (1 - d / REACH);
+            ctx.beginPath(); dot(ctx, x, y, 0.3); ctx.fill();
+          }
+        }
+      }
+      ctx.globalAlpha = 1; ctx.beginPath();
+      parts.forEach(function (p) { if (!p.gone) dot(ctx, p.x, p.y, 0.4); });
+      if (blink || still) for (var cx = 0; cx < 4; cx++) for (var cy = 1; cy < 8; cy++) dot(ctx, cur.x + cx, cy, 0.4);
+      ctx.fill();
+      parts.forEach(function (p) {
+        if (!p.gone) return;
+        ctx.globalAlpha = Math.max(p.a, 0); ctx.beginPath(); dot(ctx, p.x, p.y, 0.4); ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    function wake() {
+      if (running || !seen) return;
+      running = true;
+      requestAnimationFrame(function frame() {
+        var busy = step();
+        paint();
+        if (busy && seen) requestAnimationFrame(frame); else running = false;
+      });
+    }
+
+    function at(e) {
+      var b = canvas.getBoundingClientRect();
+      return { x: (e.clientX - b.left) / cell - 0.5, y: (e.clientY - b.top) / cell - 0.5 };
+    }
+
+    // pointer: dots step aside; a click or tap scatters them
+    if (!still) {
+      area.addEventListener("pointermove", function (e) { ptr = at(e); wake(); });
+      area.addEventListener("pointerleave", function () { ptr = null; wake(); });
+      ["pointerup", "pointercancel"].forEach(function (type) {
+        area.addEventListener(type, function (e) { if (e.pointerType !== "mouse") { ptr = null; wake(); } });
+      });
+      canvas.addEventListener("pointerdown", function (e) {
+        var o = at(e);
+        parts.forEach(function (p) {
+          var dx = p.x - o.x, dy = p.y - o.y, d = Math.sqrt(dx * dx + dy * dy) || 1;
+          if (d > BLAST) return;
+          var f = (1 - d / BLAST) * (1.6 + Math.random() * 1.6) / d;
+          p.vx += dx * f; p.vy += dy * f - Math.random() * 0.6;
+          p.wait = Math.max(p.wait, Math.round(10 + Math.random() * 14)); // hang in the air, then come back
+        });
+        pause(6000);
+        wake();
+      });
+    }
+
+    // keys: hover, focus or press shows the word; the auto cycle waits a while after that
+    var hold = 0, idx = 0, skip = 0;
+    function pause(ms) { hold = Date.now() + ms; }
+    keys.forEach(function (k) {
+      function pick() { show(k.dataset.key); idx = words.indexOf(word); pause(8000); }
+      k.addEventListener("click", pick);
+      k.addEventListener("focus", pick);
+      k.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") pick(); });
+    });
+
+    if (!still) {
+      setInterval(function () {
+        if (!seen || document.hidden || Date.now() < hold) return;
+        if (skip-- > 0) return;
+        idx = (idx + 1) % words.length;
+        show(words[idx]);
+        skip = word === home ? 1 : 0; // the name stays up twice as long
+      }, 2200);
+      setInterval(function () { blink = !blink; if (!running) paint(); }, 550);
+    }
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { seen = es[0].isIntersecting; wake(); }).observe(canvas);
+    }
+    if ("ResizeObserver" in window) new ResizeObserver(resize).observe(root);
+    else window.addEventListener("resize", resize);
+
+    resize();
+    show(home);
+    skip = 1;
+  }
 })();
