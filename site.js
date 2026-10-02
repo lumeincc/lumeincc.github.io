@@ -119,7 +119,7 @@
 
   function initBoard(root) {
     var canvas = root.querySelector("canvas"), ctx = canvas.getContext("2d");
-    var area = root.closest(".hero__frame") || root;
+    var area = root.closest(".hero") || root;
     var home = root.dataset.board;
     var words = [home].concat((root.dataset.words || "").split("|").filter(Boolean));
     var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
