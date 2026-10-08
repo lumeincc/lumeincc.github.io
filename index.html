@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LUME INC. — Websites, apps and Telegram bots</title>
 <meta name="description" content="We build websites, web apps, mobile apps and Telegram bots. From the first call to launch and support. The code stays with you.">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#0D0D0E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="LUME INC. — Websites, apps and Telegram bots">
 <meta property="og:description" content="Websites, apps and bots for business. Built end to end.">
@@ -18,161 +18,188 @@
 <link rel="alternate" hreflang="ru" href="https://lumeincc.github.io/ru/">
 <link rel="alternate" hreflang="x-default" href="https://lumeincc.github.io/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=12">
+<link rel="preload" href="fonts/inter-tight-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/jost-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="top wrap">
-  <nav class="top__nav" aria-label="Sections">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<header class="top">
+  <a class="brand" href="./"><span class="ring" aria-hidden="true"></span>LUME INC.</a>
+  <nav class="nav" aria-label="Sections">
     <a href="#services">Services</a>
-    <a href="#problems">Problems</a>
     <a href="#process">Process</a>
-    <a href="#products">Products</a>
-    <a href="#contact" class="top__cta">Contact</a>
-    <span class="lang"><a href="./" aria-current="page" lang="en">EN</a><span aria-hidden="true">/</span><a href="ru/" hreflang="ru" lang="ru">RU</a></span>
+    <a href="#contact">Contact</a>
   </nav>
+  <span class="lang"><a href="./" aria-current="page" lang="en">EN</a><span aria-hidden="true">/</span><a href="ru/" hreflang="ru" lang="ru">RU</a></span>
+  <a class="btn sm" href="https://t.me/lumeincc">Write to us<svg aria-hidden="true"><use href="#arrow"/></svg></a>
 </header>
 
 <main id="main">
 
   <!-- hero -->
-  <section class="hero wrap" id="top">
-    <h1 class="board" data-board="LUME INC." data-words="WEBSITES|WEB APPS|MOBILE APPS|BOTS|BACKEND|AUTOMATION"><canvas width="700" height="90" role="img" aria-label="LUME INC."></canvas></h1>
+  <section class="hero">
+    <p class="lockup"><span class="ring" aria-hidden="true"></span>LUME INC.</p>
+    <h1><span class="vh">We build websites, web apps, mobile apps and Telegram bots</span><span aria-hidden="true"><span class="ln">We build</span><span class="ln"><span class="cycle" data-words="websites|web apps|mobile apps|Telegram bots|backends|automation">websites</span><i class="caret"></i></span></span></h1>
+    <a class="btn" href="#contact">Discuss a project</a>
   </section>
 
   <!-- services -->
-  <section class="section wrap" id="services" aria-labelledby="services-h">
-    <h2 class="section__head" id="services-h"><span data-px="01" data-mode="dot" data-cell="3"></span><span class="mono">Services</span></h2>
-    <div class="grid grid--3">
-      <article class="card frame">
-        <span data-px="01" data-mode="dot" data-cell="7"></span>
-        <h3>Websites</h3>
-        <p>Fast to load. Built to bring in leads.</p>
-        <ul class="card__list"><li>Landing pages</li><li>Corporate sites</li><li>Online stores</li><li>Catalogs</li></ul>
-      </article>
-      <article class="card frame">
-        <span data-px="02" data-mode="dot" data-cell="7"></span>
-        <h3>Web apps</h3>
-        <p>The tools your team works in every day.</p>
-        <ul class="card__list"><li>CRM</li><li>Client portals</li><li>Admin panels</li><li>Dashboards</li></ul>
-      </article>
-      <article class="card frame">
-        <span data-px="03" data-mode="dot" data-cell="7"></span>
-        <h3>Mobile apps</h3>
-        <p>iOS and Android. One codebase, both stores.</p>
-        <ul class="card__list"><li>Customer apps</li><li>Ordering and booking</li><li>App Store and Google Play release</li></ul>
-      </article>
-      <article class="card frame">
-        <span data-px="04" data-mode="dot" data-cell="7"></span>
-        <h3>Telegram bots</h3>
-        <p>Orders and payments, right in Telegram.</p>
-        <ul class="card__list"><li>Lead intake</li><li>Payments</li><li>Notifications</li><li>Mini Apps</li></ul>
-      </article>
-      <article class="card frame">
-        <span data-px="05" data-mode="dot" data-cell="7"></span>
-        <h3>Backend</h3>
-        <p>Everything that runs behind the scenes.</p>
-        <ul class="card__list"><li>APIs</li><li>Databases</li><li>Payment systems</li><li>Integrations</li></ul>
-      </article>
-      <article class="card frame">
-        <span data-px="06" data-mode="dot" data-cell="7"></span>
-        <h3>Automation</h3>
-        <p>Repetitive work, handled by code.</p>
-        <ul class="card__list"><li>Reports</li><li>Data sync</li><li>Parsers</li><li>Scheduled jobs</li></ul>
-      </article>
-    </div>
-  </section>
+  <section class="sec wrap" id="services">
+    <h2 class="h2">What we build</h2>
+    <div class="svc">
+      <div class="tabs" role="tablist" aria-label="Services" aria-orientation="vertical">
+        <button class="tab" role="tab" id="t-web" aria-controls="p-web" aria-selected="true">Websites</button>
+        <button class="tab" role="tab" id="t-app" aria-controls="p-app" aria-selected="false" tabindex="-1">Web apps</button>
+        <button class="tab" role="tab" id="t-mob" aria-controls="p-mob" aria-selected="false" tabindex="-1">Mobile apps</button>
+        <button class="tab" role="tab" id="t-bot" aria-controls="p-bot" aria-selected="false" tabindex="-1">Telegram bots</button>
+        <button class="tab" role="tab" id="t-api" aria-controls="p-api" aria-selected="false" tabindex="-1">Backend</button>
+        <button class="tab" role="tab" id="t-auto" aria-controls="p-auto" aria-selected="false" tabindex="-1">Automation</button>
+      </div>
 
-  <!-- problems -->
-  <section class="section wrap" id="problems" aria-labelledby="problems-h">
-    <h2 class="section__head" id="problems-h"><span data-px="02" data-mode="dot" data-cell="3"></span><span class="mono">Problems</span></h2>
-    <div class="tasks__head mono" aria-hidden="true"><span>Problem</span><span>What we do</span></div>
-    <ul class="tasks">
-      <li class="task">
-        <p class="task__q"><span class="vh">Problem: </span>Leads get lost in chats.</p>
-        <span class="task__arr" aria-hidden="true">→</span>
-        <p class="task__a"><span class="vh">What we do: </span>We gather them in a CRM or a Telegram bot. Not one gets lost.</p>
-      </li>
-      <li class="task">
-        <p class="task__q"><span class="vh">Problem: </span>You have a website. No clients.</p>
-        <span class="task__arr" aria-hidden="true">→</span>
-        <p class="task__a"><span class="vh">What we do: </span>We build one that brings in leads. With analytics, so you can see what works.</p>
-      </li>
-      <li class="task">
-        <p class="task__q"><span class="vh">Problem: </span>Your team spends hours on busywork.</p>
-        <span class="task__arr" aria-hidden="true">→</span>
-        <p class="task__a"><span class="vh">What we do: </span>We automate it. Reports and exports put themselves together.</p>
-      </li>
-      <li class="task">
-        <p class="task__q"><span class="vh">Problem: </span>Customers can't order from their phone.</p>
-        <span class="task__arr" aria-hidden="true">→</span>
-        <p class="task__a"><span class="vh">What we do: </span>We build an app or a Telegram Mini App. Order and pay in a few taps.</p>
-      </li>
-      <li class="task">
-        <p class="task__q"><span class="vh">Problem: </span>Your systems don't talk to each other.</p>
-        <span class="task__arr" aria-hidden="true">→</span>
-        <p class="task__a"><span class="vh">What we do: </span>We connect them through an API. No more copying data by hand.</p>
-      </li>
-      <li class="task">
-        <p class="task__q"><span class="vh">Problem: </span>You have an idea, but no team.</p>
-        <span class="task__arr" aria-hidden="true">→</span>
-        <p class="task__a"><span class="vh">What we do: </span>We are the team. We build the first version and launch it.</p>
-      </li>
-    </ul>
-  </section>
+      <div class="panel" role="tabpanel" id="p-web" aria-labelledby="t-web">
+        <div class="mock m-web" aria-hidden="true">
+          <div class="br"><i></i><i></i><i></i><span>yourcompany.com</span></div>
+          <div class="pg">
+            <b class="sk h w60"></b><b class="sk h w40"></b><b class="sk w70"></b><b class="sk w50"></b>
+            <span class="pill">Get a quote</span>
+            <div class="tiles"><b></b><b></b><b></b></div>
+          </div>
+          <div class="toast glass"><span class="live-dot"></span><div><strong>New lead</strong><span>Aigerim, +7 701 ··· 24 11</span><small>from the pricing page</small></div></div>
+        </div>
+        <p class="lead">Fast to load. Built to bring in leads.</p>
+        <ul class="items"><li>Landing pages</li><li>Corporate sites</li><li>Online stores</li><li>Catalogs</li></ul>
+      </div>
 
-  <!-- process -->
-  <section class="section wrap" id="process" aria-labelledby="process-h">
-    <h2 class="section__head" id="process-h"><span data-px="03" data-mode="dot" data-cell="3"></span><span class="mono">Process</span></h2>
-    <ol class="steps">
-      <li class="step">
-        <span data-px="01" data-mode="dot" data-cell="5"></span>
-        <h3>Brief</h3>
-        <p>We ask questions and work out the timeline and cost. You know the price before we start.</p>
-      </li>
-      <li class="step">
-        <span data-px="02" data-mode="dot" data-cell="5"></span>
-        <h3>Build</h3>
-        <p>We work in short stages. After each one, we show you what's ready.</p>
-      </li>
-      <li class="step">
-        <span data-px="03" data-mode="dot" data-cell="5"></span>
-        <h3>Launch</h3>
-        <p>We test and ship. The code and every access go to you.</p>
-      </li>
-      <li class="step">
-        <span data-px="04" data-mode="dot" data-cell="5"></span>
-        <h3>Support</h3>
-        <p>We stay after launch. We fix bugs and add what comes next.</p>
-      </li>
-    </ol>
-  </section>
+      <div class="panel" role="tabpanel" id="p-app" aria-labelledby="t-app" hidden>
+        <div class="mock m-app" aria-hidden="true">
+          <div class="side"><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="main">
+            <div class="kpi"><div><span class="lab">Orders today</span><span class="dm" data-dm="128" data-pitch="6">128</span></div><span class="delta">+14% vs. last week</span></div>
+            <svg class="chart" viewBox="0 0 300 80" preserveAspectRatio="none"><path d="M0 62L20 58 40 60 60 50 80 54 100 44 120 47 140 38 160 42 180 30 200 34 220 24 240 28 260 18 280 22 300 12V80H0Z"/><line x1="0" x2="300" y1="30" y2="30"/><polyline points="0,62 20,58 40,60 60,50 80,54 100,44 120,47 140,38 160,42 180,30 200,34 220,24 240,28 260,18 280,22 300,12"/></svg>
+            <ul class="rows"><li><span>#4812</span><span>Office chairs, 6 pcs</span><span class="tag ok">Delivered</span></li><li><span>#4811</span><span>Standing desk</span><span class="tag acc">In progress</span></li><li><span>#4810</span><span>Monitor arm, 2 pcs</span><span class="tag dim">New</span></li></ul>
+          </div>
+        </div>
+        <p class="lead">The tools your team works in every day.</p>
+        <ul class="items"><li>CRM</li><li>Client portals</li><li>Admin panels</li><li>Dashboards</li></ul>
+      </div>
 
-  <!-- own products -->
-  <section class="section wrap" id="products" aria-labelledby="products-h">
-    <h2 class="section__head" id="products-h"><span data-px="04" data-mode="dot" data-cell="3"></span><span class="mono">Products</span></h2>
-    <div class="frame products">
-      <p class="products__text">We build our own products too. The first ones are in the works.</p>
-      <div class="products__bar">
-        <span class="mono">In the works</span>
-        <span class="loader" data-loader="24" aria-hidden="true"></span>
+      <div class="panel" role="tabpanel" id="p-mob" aria-labelledby="t-mob" hidden>
+        <div class="mock m-mob" aria-hidden="true">
+          <div class="ph"><div class="ph-in"><b class="sk h w60"></b><b class="sk w40"></b><div class="grid4"><b></b><b></b><b></b><b></b></div><span class="pill">Order · 2 items</span></div></div>
+          <div class="stores"><span>App Store</span><span>Google Play</span><small>One codebase, both stores</small></div>
+        </div>
+        <p class="lead">iOS and Android. One codebase, both stores.</p>
+        <ul class="items"><li>Customer apps</li><li>Ordering and booking</li><li>App Store and Google Play release</li></ul>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-bot" aria-labelledby="t-bot" hidden>
+        <div class="mock m-bot" aria-hidden="true">
+          <div class="tg">
+            <div class="b in">Hi! What would you like to order?</div>
+            <div class="kb"><span>Catalog</span><span>Cart</span><span>My orders</span><span>Help</span></div>
+            <div class="b out">Cart</div>
+            <div class="b in">2 items, 12 400 KZT<span class="pay">Pay</span></div>
+          </div>
+        </div>
+        <p class="lead">Orders and payments, right in Telegram.</p>
+        <ul class="items"><li>Lead intake</li><li>Payments</li><li>Notifications</li><li>Mini Apps</li></ul>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-api" aria-labelledby="t-api" hidden>
+        <div class="mock m-api" aria-hidden="true">
+          <div class="req"><span class="verb">POST</span>/api/orders<span class="st tag ok">201 Created</span><span class="ms">38 ms</span></div>
+<pre>{
+  <span class="k">"id"</span>: <span class="n">4812</span>,
+  <span class="k">"status"</span>: <span class="s">"new"</span>,
+  <span class="k">"total"</span>: <span class="n">12400</span>,
+  <span class="k">"paid"</span>: <span class="n">true</span>,
+  <span class="k">"notify"</span>: [<span class="s">"crm"</span>, <span class="s">"telegram"</span>]
+}</pre>
+        </div>
+        <p class="lead">Everything that runs behind the scenes.</p>
+        <ul class="items"><li>APIs</li><li>Databases</li><li>Payment systems</li><li>Integrations</li></ul>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-auto" aria-labelledby="t-auto" hidden>
+        <div class="mock m-auto" aria-hidden="true">
+          <div class="clk"><span class="dm" data-dm="07:30" data-pitch="6">07:30</span><small>Next run in 14 min</small></div>
+          <ul class="log">
+            <li><time>07:00</time><span>Sales report sent to 4 people</span><i class="chk"></i></li>
+            <li><time>07:05</time><span>CRM and 1C synced, 214 rows</span><i class="chk"></i></li>
+            <li><time>07:15</time><span>Price parser, 36 updates</span><i class="chk"></i></li>
+            <li><time>07:30</time><span>Database backup</span><i class="live-dot"></i></li>
+          </ul>
+        </div>
+        <p class="lead">Repetitive work, handled by code.</p>
+        <ul class="items"><li>Reports</li><li>Data sync</li><li>Parsers</li><li>Scheduled jobs</li></ul>
       </div>
     </div>
   </section>
 
+  <!-- problems -->
+  <section class="sec wrap" id="problems">
+    <div class="talk">
+      <h2 class="h2">Sound familiar?</h2>
+      <div class="chat">
+        <p class="msg in">Leads get lost in chats.</p>
+        <p class="who"><span class="ring" aria-hidden="true"></span>LUME INC.</p>
+        <p class="msg out">We gather them in a CRM or a Telegram bot. Not one gets lost.</p>
+        <p class="msg in">We have a website. No clients.</p>
+        <p class="msg out">We build one that brings in leads. With analytics, so you can see what works.</p>
+        <p class="msg in">Our team spends hours on busywork.</p>
+        <p class="msg out">We automate it. Reports and exports put themselves together.</p>
+        <p class="msg in">Customers can't order from their phone.</p>
+        <p class="msg out">We build an app or a Telegram Mini App. Order and pay in a few taps.</p>
+        <p class="msg in">Our systems don't talk to each other.</p>
+        <p class="msg out">We connect them through an API. No more copying data by hand.</p>
+        <p class="msg in">We have an idea, but no team.</p>
+        <p class="msg out">We are the team. We build the first version and launch it.</p>
+        <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>
+        <a class="chat-cta" href="https://t.me/lumeincc">Your turn. Write to us in Telegram →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- process -->
+  <section class="sec wrap" id="process">
+    <h2 class="h2">How we work</h2>
+    <ol class="track">
+      <li class="step"><h3>Brief</h3><p>We ask questions and work out the timeline and cost. You know the price before we start.</p></li>
+      <li class="step"><h3>Build</h3><p>We work in short stages. After each one, we show you what's ready.</p></li>
+      <li class="step"><h3>Launch</h3><p>We test and ship. The code and every access go to you.</p></li>
+      <li class="step"><h3>Support</h3><p>We stay after launch. We fix bugs and add what comes next.</p></li>
+      <li class="run" aria-hidden="true"></li>
+    </ol>
+  </section>
+
+  <!-- products -->
+  <section class="sec wrap" id="products">
+    <div class="prod">
+      <p>We build our own products too. The first ones are in the works.</p>
+      <span class="loader">In the works<span class="dots" data-n="16" aria-hidden="true"></span></span>
+    </div>
+  </section>
+
   <!-- contact -->
-  <section class="section wrap" id="contact" aria-labelledby="contact-h">
-    <h2 class="section__head" id="contact-h"><span data-px="05" data-mode="dot" data-cell="3"></span><span class="mono">Contact</span></h2>
+  <section class="sec wrap" id="contact">
     <div class="contact">
-      <p class="contact__text">Got a project? Write to us.</p>
-      <p class="contact__note">We'll reply with a plan and an estimate.</p>
+      <div>
+        <h2 class="h2">Got a project? Write to us.</h2>
+        <p class="lead">We'll reply with a plan and an estimate.</p>
+        <a class="btn" href="https://t.me/lumeincc">Write in Telegram<svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
       <ul class="links">
-        <li><a href="https://t.me/lumeincc"><span class="mono">Telegram</span><span class="links__v">@lumeincc</span><span class="links__arr" aria-hidden="true">→</span></a></li>
-        <li><a href="https://github.com/lumeincc"><span class="mono">GitHub</span><span class="links__v">lumeincc</span><span class="links__arr" aria-hidden="true">→</span></a></li>
-        <li><a href="https://x.com/lumeinc"><span class="mono">X</span><span class="links__v">@lumeinc</span><span class="links__arr" aria-hidden="true">→</span></a></li>
+        <li><a href="https://t.me/lumeincc"><span class="k">Telegram</span><span class="v">@lumeincc</span><svg aria-hidden="true"><use href="#ne"/></svg></a></li>
+        <li><a href="https://github.com/lumeincc"><span class="k">GitHub</span><span class="v">lumeincc</span><svg aria-hidden="true"><use href="#ne"/></svg></a></li>
+        <li><a href="https://x.com/lumeinc"><span class="k">X</span><span class="v">@lumeinc</span><svg aria-hidden="true"><use href="#ne"/></svg></a></li>
       </ul>
     </div>
   </section>
@@ -180,9 +207,10 @@
 </main>
 
 <footer class="foot wrap">
-  <span class="foot__mark"><span class="mono">LUME INC.</span><span class="mono" aria-hidden="true">▪</span><span data-px="2026" data-mode="dot" data-cell="2"></span></span>
+  <span class="mark"><span class="ring" aria-hidden="true"></span>LUME INC., 2026</span>
+  <span class="lang"><a href="./" aria-current="page" lang="en">EN</a><span aria-hidden="true">/</span><a href="ru/" hreflang="ru" lang="ru">RU</a></span>
 </footer>
 
-<script src="site.js?v=9"></script>
+<script src="site.js?v=20"></script>
 </body>
 </html>

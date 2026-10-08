@@ -1,4 +1,4 @@
-<img src=".github/banner.svg" width="100%" alt="LUME INC. We build everything.">
+<img src=".github/banner.svg" width="100%" alt="LUME INC. Our studio site. Pixel type and dot-matrix numbers drawn from one 5x7 font.">
 
 The LUME INC. site.
 
@@ -10,11 +10,11 @@ Static. No build step. GitHub Pages serves `main` as is.
 |---|---|
 | `index.html` | English page. Copy lives here |
 | `ru/index.html` | Russian page. Same markup, same assets. Edit both when the copy changes |
-| `style.css` | White page, one mono face (JetBrains Mono) for all text, crop-mark frames |
-| `site.js` | Draws the pixel type (Latin and Cyrillic) and the dot-matrix numbers from one 5x7 font, and runs the hero board |
-| `fonts/` | JetBrains Mono, self-hosted (Latin and Cyrillic, SIL OFL 1.1). No Google Fonts request |
-| `favicon.svg`, `og.png` | Tab icon and link preview |
+| `style.css` | Dark page, Inter Tight for type and Jost for interface text, one warm accent |
+| `site.js` | The typing word in the hero, the services switcher, dot-matrix numbers and the products loader |
+| `fonts/` | Inter Tight and Jost, self-hosted (Latin and Cyrillic, SIL OFL 1.1). No Google Fonts request |
+| `favicon.svg`, `og.png`, `og-ru.png` | Tab icon and link previews (EN and RU) |
 
-Pixel text is any element with `data-px="TEXT"`. Add `data-mode="dot"` for round dots, `data-cursor` for the blinking block, `data-cell` for size.
+The hero word is any `.cycle` element with `data-words="A|B|C"`. It erases back to what the next word shares and types the rest. With reduced motion the first word stays.
 
-The hero board is a canvas inside `[data-board="LUME INC."]`; `data-words="A|B|C"` lists the words it cycles through. The cursor erases back to what two words share and types the rest. Dots step aside from the pointer and scatter on a click. With reduced motion words switch at once.
+Dot-matrix numbers are any `.dm` element with `data-dm="07:30"`; `data-pitch` sets the dot spacing.
