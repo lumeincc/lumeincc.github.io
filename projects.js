@@ -1,5 +1,5 @@
 // LUME INC. — the Projects page: screenshots that scroll on their own, theme switches, the heat dial, the Instagram
-// viewer, the players, the slide deck, the before/after wipe, the business card and the Telegram bot demo.
+// viewer, the slide deck, the business card and the Telegram bot demo.
 // Runs after site.js (it uses window.lumeDM for the dot-matrix readouts). Everything still reads without JS.
 (() => {
   const M = document.currentScript.dataset.media;
@@ -73,15 +73,14 @@
   /* instagram: the grid on the left, the open post on the right */
   const igd = JSON.parse($('#ig-data')?.textContent || 'null');
   if (igd) {
-    const fr = $('.ig-frame'), im = $('.ig-img'), vid = $('.ig-vid'), cap = $('.ig-cap'), dots = $('.ig-dots');
+    const fr = $('.ig-frame'), im = $('.ig-img'), cap = $('.ig-cap'), dots = $('.ig-dots');
     const prev = $('.prev', fr), next = $('.next', fr);
     let cur = igd.posts[0], k = 0;
     const draw = () => {
-      const v = !!cur.v, n = v ? 1 : cur.s.length;
-      im.hidden = v; vid.hidden = !v;
-      fr.classList.toggle('tallv', v || !!cur.story);
-      if (v) { if (!vid.src.includes(cur.v)) { vid.poster = M + cur.v + '.webp'; vid.src = M + cur.v + '.mp4'; } }
-      else { vid.pause(); im.src = M + cur.s[k]; im.alt = n > 1 ? `${cur.t} · ${k + 1}/${n}` : cur.t; if (cur.s[k + 1]) new Image().src = M + cur.s[k + 1]; }
+      const n = cur.s.length;
+      fr.classList.toggle('tallv', !!cur.story);
+      im.src = M + cur.s[k]; im.alt = n > 1 ? `${cur.t} · ${k + 1}/${n}` : cur.t;
+      if (cur.s[k + 1]) new Image().src = M + cur.s[k + 1];
       prev.disabled = k === 0; next.disabled = k >= n - 1;
       dots.innerHTML = n > 1 ? Array.from({ length: n }, (_, i) => `<i${i === k ? ' class="on"' : ''}></i>`).join('') : '';
       cap.textContent = cur.t;
@@ -93,20 +92,13 @@
     };
     $$('.ig-cell').forEach(c => c.addEventListener('click', () => open(igd.posts[+c.dataset.i], c)));
     $$('.ig-hl button').forEach(b => b.addEventListener('click', () => open(igd.hl[+b.dataset.h], b)));
-    const step = d => { const n = cur.v ? 1 : cur.s.length; const j = Math.max(0, Math.min(n - 1, k + d)); if (j !== k) { k = j; draw(); } };
+    const step = d => { const n = cur.s.length; const j = Math.max(0, Math.min(n - 1, k + d)); if (j !== k) { k = j; draw(); } };
     prev.addEventListener('click', () => step(-1));
     next.addEventListener('click', () => step(1));
     swipe(im, () => step(-1), () => step(1));
     draw();
   }
 
-  /* video: one plays at a time, with sound */
-  const allVideos = () => $$('video');
-  $$('.reel').forEach(r => {
-    const v = $('video', r), b = $('.play', r);
-    b.addEventListener('click', () => { r.classList.add('on'); v.controls = true; v.play(); });
-  });
-  document.addEventListener('play', e => { allVideos().forEach(o => { if (o !== e.target) o.pause(); }); }, true);
 
   /* presentation: arrows, the scrubber, swipes */
   const deck = $('.deck');
@@ -127,18 +119,6 @@
     p.disabled = true;
   }
 
-  /* before / after: drag anywhere on the photo; the hidden range keeps it usable from the keyboard */
-  $$('.ba').forEach(b => {
-    const r = $('.ba-range', b);
-    const set = v => { r.value = v; b.style.setProperty('--x', v + '%'); };
-    const at = e => { const q = b.getBoundingClientRect(); set(Math.round(Math.max(0, Math.min(100, (e.clientX - q.left) / q.width * 100)))); };
-    let drag = false;
-    b.addEventListener('pointerdown', e => { drag = true; b.setPointerCapture(e.pointerId); at(e); });
-    b.addEventListener('pointermove', e => { if (drag) at(e); });
-    b.addEventListener('pointerup', () => { drag = false; });
-    b.addEventListener('pointercancel', () => { drag = false; });
-    r.addEventListener('input', () => set(+r.value));
-  });
 
   /* the business card turns over */
   $$('.vcard').forEach(c => c.addEventListener('click', () => c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'))));

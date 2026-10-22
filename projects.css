@@ -1,6 +1,6 @@
 /* LUME INC. — the Projects page. Sits on top of style.css: same ground, type and accent.
-   Each block shows the work in its own form: a live browser, a heat dial, an Instagram profile, players, a slide deck,
-   a before/after wipe, paper on a desk, a chat with the bot. */
+   Each block shows the work in its own form: a live browser, a heat dial, an Instagram profile, a slide deck,
+   paper on a desk, a chat with the bot. */
 
 .nav [aria-current]{color:var(--fg)}
 
@@ -81,7 +81,7 @@
 .ig-top b{display:block;font-weight:400;font-size:16px}
 .ig-top span{font-size:13px;color:var(--fg-3)}
 .ig-bio{margin:14px 0 0;font-size:14px;line-height:1.5;color:var(--fg-2)}
-.ig-hl{display:flex;gap:14px;margin:20px 0 0;padding:0 0 4px;list-style:none;overflow-x:auto;scrollbar-width:none}
+.ig-hl{display:flex;gap:14px;margin:16px -4px 0;padding:4px 4px 6px;list-style:none;overflow-x:auto;scrollbar-width:none}
 .ig-hl li{display:grid;justify-items:center;gap:6px;font-size:11.5px;color:var(--fg-2)}
 .ig-hl button{width:58px;height:58px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;box-shadow:0 0 0 1.5px var(--line-2);overflow:hidden;transition:box-shadow .2s}
 .ig-hl button:hover,.ig-hl button[aria-current]{box-shadow:0 0 0 2px var(--fg)}
@@ -93,29 +93,15 @@
 .ig-cell[aria-current]::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 2px var(--fg)}
 .ig-cell i{position:absolute;top:8px;right:8px;width:16px;height:16px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
 .ic-multi{background:#fff;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 0h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1V4a1 1 0 0 0-1-1H3V2a2 2 0 0 1 2-2z'/%3E%3Crect y='4' width='12' height='12' rx='2'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 0h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1V4a1 1 0 0 0-1-1H3V2a2 2 0 0 1 2-2z'/%3E%3Crect y='4' width='12' height='12' rx='2'/%3E%3C/svg%3E") center/contain no-repeat}
-.ic-reel{background:#fff;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 4.5v15l13-7.5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 4.5v15l13-7.5z'/%3E%3C/svg%3E") center/contain no-repeat}
 .ig-view{position:sticky;top:24px;margin:0}
 .ig-frame{position:relative;max-width:560px;margin-inline:auto;aspect-ratio:4/5;overflow:hidden;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 50px 90px -40px rgba(0,0,0,.9)}
 .ig-frame.tallv{aspect-ratio:9/16;max-width:420px}
-.ig-img,.ig-vid{display:block;width:100%;height:100%;object-fit:cover;background:#000}
+.ig-img{display:block;width:100%;height:100%;object-fit:cover;background:#000}
 .ig-dots{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:5px}
 .ig-dots i{width:6px;height:6px;border-radius:50%;background:#fff;opacity:.35;transition:opacity .2s}
 .ig-dots i.on{opacity:1}
 .ig-cap{max-width:560px;margin:16px auto 0;font-family:var(--font-ui);font-size:14px;color:var(--fg-2)}
 
-/* ---------- video ---------- */
-.reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.6vw,36px);align-items:start}
-.reel{margin:0}
-.reel:nth-child(2){margin-top:clamp(40px,7vw,110px)}
-.reel:nth-child(3){margin-top:clamp(20px,3.5vw,55px)}
-.reel-v{position:relative;aspect-ratio:9/16;overflow:hidden;border-radius:24px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
-.reel-v video{display:block;width:100%;height:100%;object-fit:cover}
-.play{position:absolute;left:50%;top:50%;display:grid;place-items:center;width:68px;height:68px;margin:-34px 0 0 -34px;padding:0;border:0;border-radius:50%;background:rgba(242,241,239,.92);color:var(--on-light);cursor:pointer;transition:transform .2s,background .2s}
-.play svg{width:26px;height:26px;margin-left:3px}
-.play:hover{background:#fff;transform:scale(1.05)}
-.reel.on .play{display:none}
-.reel figcaption{margin-top:16px;font-family:var(--font-ui);font-size:14px;line-height:1.45;color:var(--fg-3)}
-.reel figcaption b{display:block;margin-bottom:3px;font-weight:400;font-size:16px;color:var(--fg)}
 
 /* ---------- presentation ---------- */
 .deck-frame{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 50px 90px -40px rgba(0,0,0,.9)}
@@ -132,20 +118,6 @@
 .deck-pdf:hover{color:var(--fg)}
 .deck-pdf svg{width:14px;height:14px}
 
-/* ---------- product photos: before / after ---------- */
-.ph{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:clamp(28px,5vw,80px);align-items:center}
-.ba{position:relative;aspect-ratio:1400/994;overflow:hidden;border-radius:22px;background:#000;box-shadow:inset 0 0 0 1px var(--line);user-select:none;-webkit-user-select:none;touch-action:pan-y}
-.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
-.ba-before{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--x)) 0 0)}
-.ba-line{position:absolute;top:0;bottom:0;left:var(--x);width:2px;margin-left:-1px;background:var(--fg);pointer-events:none}
-.ba-line i{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(20,20,23,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1.5px var(--fg)}
-.ba-line i::before,.ba-line i::after{content:"";position:absolute;top:50%;width:7px;height:7px;margin-top:-4px;border:solid var(--fg);border-width:0 0 1.5px 1.5px}
-.ba-line i::before{left:12px;transform:rotate(45deg)}
-.ba-line i::after{right:12px;transform:rotate(-135deg)}
-.ba-tag{position:absolute;top:16px;padding:6px 12px;border-radius:999px;background:rgba(20,20,23,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-family:var(--font-ui);font-size:12px;color:var(--fg);pointer-events:none}
-.ba-tag.l{left:16px}.ba-tag.r{right:16px}
-.ba-range{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
-.ba:has(.ba-range:focus-visible){outline:1.5px solid var(--accent);outline-offset:3px}
 
 /* ---------- paper ---------- */
 .sheets{display:flex;gap:clamp(14px,1.8vw,22px);overflow-x:auto;padding:4px 2px 24px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--surface-2) transparent}
@@ -176,7 +148,8 @@
 .tg-ava{width:38px;height:38px;border-radius:50%}
 .tg-head b{display:block;font-weight:400;font-size:15px}
 .tg-head span{font-size:12px;color:var(--fg-3)}
-.tg-log{flex:1;display:flex;flex-direction:column;gap:10px;overflow-y:auto;padding:18px clamp(12px,2vw,22px);scrollbar-width:thin;scrollbar-color:var(--surface-2) transparent;overscroll-behavior:contain}
+.tg-log{flex:1;display:flex;flex-direction:column;gap:10px;min-height:0;overflow-y:auto;padding:18px clamp(12px,2vw,22px);scrollbar-width:thin;scrollbar-color:var(--surface-2) transparent;overscroll-behavior:contain}
+.tg-log > *{flex-shrink:0}
 .tg-m{max-width:min(88%,430px);border-radius:16px;font-size:14px;line-height:1.45;animation:tg-in .3s ease both}
 .tg-m.in{align-self:flex-start;overflow:hidden;background:var(--surface);border-bottom-left-radius:5px}
 .tg-m.in img{display:block;width:100%;height:auto}
@@ -201,7 +174,7 @@
 
 /* ---------- narrow screens ---------- */
 @media (max-width:860px){
-  .pj-head,.id,.ig,.ph,.bot{grid-template-columns:minmax(0,1fr)}
+  .pj-head,.id,.ig,.bot{grid-template-columns:minmax(0,1fr)}
   .pj-head{align-items:start}
   .ig-view{position:static;order:-1}
   .ig-grid{max-height:none}
@@ -209,9 +182,6 @@
   .site-stage .phone{right:8px;bottom:0;width:150px}
   .j-stage{padding-left:0;padding-bottom:70px}
   .j-stage .phone{left:8px;bottom:0;width:130px}
-  .reels{display:flex;gap:14px;overflow-x:auto;margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter);scroll-snap-type:x mandatory;scrollbar-width:none}
-  .reel{flex:none;width:min(68vw,300px);scroll-snap-align:center}
-  .reel:nth-child(n){margin-top:0}
   .desk{grid-template-columns:1fr 1fr;grid-template-areas:"bill bill" "card roll" "plate roll"}
   .tg-win{height:600px}
   .sheets{margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter)}
