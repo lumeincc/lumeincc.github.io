@@ -122,17 +122,16 @@
 /* ---------- paper ---------- */
 .sheets{display:flex;gap:clamp(14px,1.8vw,22px);overflow-x:auto;padding:4px 2px 24px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--surface-2) transparent}
 .sheet{flex:none;width:clamp(200px,22vw,300px);margin:0;scroll-snap-align:start}
+.sheet.tall{width:calc(clamp(200px,22vw,300px) * 1123 / 794 * 600 / 1412)}
 .sheet img{display:block;width:100%;height:auto;border-radius:6px;background:#fff;box-shadow:0 24px 50px -24px rgba(0,0,0,.9)}
-.desk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.58fr);grid-template-areas:"bill bill roll" "card plate roll";gap:clamp(14px,1.8vw,22px);margin-top:clamp(24px,3vw,40px)}
+.desk{display:grid;grid-template-columns:minmax(0,2.8fr) minmax(0,1fr);grid-template-areas:"bill card" "bill plate";gap:clamp(14px,1.8vw,22px);margin-top:clamp(24px,3vw,40px)}
 .dk{margin:0;overflow:hidden;border-radius:20px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
 .dk img{display:block;width:100%;height:100%;object-fit:contain}
-.bill{grid-area:bill;aspect-ratio:2/1}
-.bill img{object-fit:cover}
-.roll{grid-area:roll;display:grid;place-items:center;padding:clamp(14px,2vw,26px)}
-.roll img{width:auto;max-width:100%;height:100%;max-height:100%;border-radius:4px}
-.plate{grid-area:plate;display:grid;place-items:center;padding:clamp(14px,2.4vw,30px)}
+.bill{grid-area:bill;aspect-ratio:2/1;background:#fff}
+.bill img{object-fit:contain}
+.plate{grid-area:plate;display:grid;place-items:center;padding:16px}
 .plate img{height:auto;border-radius:4px}
-.vcard{grid-area:card;position:relative;display:grid;place-items:center;padding:clamp(18px,2.6vw,34px);border:0;cursor:pointer;perspective:1200px;color:inherit}
+.vcard{grid-area:card;position:relative;display:grid;place-items:center;padding:16px;border:0;cursor:pointer;perspective:1200px;color:inherit}
 .vc-in{position:relative;display:block;width:100%;aspect-ratio:1110/638;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,.7,.2,1)}
 .vcard[aria-pressed="true"] .vc-in{transform:rotateY(180deg)}
 .vc-f,.vc-b{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;border-radius:8px;overflow:hidden;box-shadow:0 24px 40px -20px rgba(0,0,0,.9)}
@@ -219,7 +218,7 @@
   .site-stage .phone{right:8px;bottom:0;width:150px}
   .j-stage{padding-left:0;padding-bottom:70px}
   .j-stage .phone{left:8px;bottom:0;width:130px}
-  .desk{grid-template-columns:1fr 1fr;grid-template-areas:"bill bill" "card roll" "plate roll"}
+  .desk{grid-template-columns:minmax(0,1fr);grid-template-areas:"bill" "card" "plate"}
   .tg-win{height:600px}
   .sheets{margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter)}
 }
