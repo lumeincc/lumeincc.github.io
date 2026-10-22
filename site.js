@@ -17,6 +17,7 @@
     '9': ['.###.', '#...#', '#...#', '.####', '....#', '....#', '.###.'],
     ':': ['.', '.', '#', '.', '#', '.', '.'],
     '.': ['.', '.', '.', '.', '.', '.', '#'],
+    ',': ['..', '..', '..', '..', '..', '.#', '#.'],
     ' ': ['..', '..', '..', '..', '..', '..', '..']
   };
   const dm = (el, str = el.dataset.dm) => {
@@ -80,6 +81,38 @@
       select(n); n.focus();
     });
   });
+
+  /* products: LUME's message decrypts itself, TONNA's readout runs through a few profiles */
+  const ci = document.querySelector('.cipher[data-plain]');
+  if (ci && !reduce) {
+    const plain = ci.dataset.plain, CH = '#%&*+=?<>/|01ABCDEFabcdef';
+    const mix = s => [...s].map(c => c === ' ' ? ' ' : CH[Math.random() * CH.length | 0]).join('');
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    (async () => {
+      for (;;) {
+        ci.textContent = mix(plain); await wait(1600);
+        for (let i = 0; i <= plain.length; i++) { ci.textContent = plain.slice(0, i) + mix(plain.slice(i)); await wait(55); }
+        await wait(2800);
+        for (let i = plain.length; i >= 0; i--) { ci.textContent = plain.slice(0, i) + mix(plain.slice(i)); await wait(28); }
+      }
+    })();
+  }
+  const calc = document.querySelector('.calc[data-items]');
+  if (calc) {
+    const items = JSON.parse(calc.dataset.items), sep = calc.dataset.sep || '.';
+    const k = calc.querySelector('.calc-k'), v = calc.querySelector('.calc-v .dm');
+    const show = x => dm(v, x.toFixed(3).replace('.', sep));
+    let n = 0, cur = items[0][1];
+    if (!reduce) setInterval(() => {
+      if (document.hidden) return;
+      n = (n + 1) % items.length;
+      const [label, to] = items[n], from = cur, t0 = performance.now();
+      k.style.opacity = 0;
+      setTimeout(() => { k.textContent = label; k.style.opacity = 1; }, 300);
+      const step = now => { const q = Math.min(1, (now - t0) / 700), e = 1 - (1 - q) ** 3; show(from + (to - from) * e); if (q < 1) requestAnimationFrame(step); else cur = to; };
+      requestAnimationFrame(step);
+    }, 3400);
+  }
 
   /* products loader */
   document.querySelectorAll('.dots[data-n]').forEach(el => {
