@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 569 517" width="569" height="517"><title>ТемирЭнергоСтрой</title><g transform="translate(-37.60 -67.60) scale(1.00000)"><defs>
+    <radialGradient id="tm7s" cx="322" cy="198" r="317.75" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE21A"/><stop offset=".42" stop-color="#FDB515"/>
+      <stop offset=".72" stop-color="#F47B20"/><stop offset="1" stop-color="#E2461B"/></radialGradient>
+    <linearGradient id="tm7f" x1="0" y1=".2" x2="1" y2=".8">
+      <stop offset="0" stop-color="#FFE21A"/><stop offset=".3" stop-color="#FFC514"/>
+      <stop offset=".68" stop-color="#F99D1C"/><stop offset="1" stop-color="#F47B20"/></linearGradient>
+    <mask id="tm7ms" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="640">
+      <rect width="640" height="640" fill="#fff"/>
+      <path d="M124 414L146 388L166 366L182 340L196 312L210 284L226 256L238 246L250 252L262 268L276 240L292 208L312 190L326 170L338 160L350 172L362 196L372 222L384 246L398 268L414 266L430 262L444 276L458 302L474 334L490 362L506 390L524 422L560 640L80 640Z" fill="#000" stroke="#000" stroke-width="18" stroke-linejoin="round"/></mask>
+    <mask id="tm7mf" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="640">
+      <rect width="640" height="640" fill="#fff"/>
+      <g fill="#000" stroke="#000" stroke-width="18" stroke-linejoin="round"><path d="M210 496C198 468 198 436 210 412C218 396 226 386 235 375C236 412 248 452 267 496Z"/><path d="M277 496C258 462 248 428 250 396C252 360 266 330 285 307C290 336 298 372 314 408C328 440 346 468 360 496Z"/><path d="M370 496C350 462 326 432 312 400C298 368 296 326 310 296C322 272 342 256 367 250C356 270 352 296 358 330C364 364 388 398 410 428C428 452 432 476 421 496Z"/></g></mask>
+    <mask id="tm7mr" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="640">
+      <rect width="640" height="640" fill="#fff"/>
+      <g fill="#000" stroke="#000" stroke-width="18" stroke-linejoin="round"><path d="M210 496C198 468 198 436 210 412C218 396 226 386 235 375C236 412 248 452 267 496Z"/><path d="M277 496C258 462 248 428 250 396C252 360 266 330 285 307C290 336 298 372 314 408C328 440 346 468 360 496Z"/><path d="M370 496C350 462 326 432 312 400C298 368 296 326 310 296C322 272 342 256 367 250C356 270 352 296 358 330C364 364 388 398 410 428C428 452 432 476 421 496Z"/></g>
+      <rect x="0" y="474" width="640" height="200" fill="#fff"/></mask>
+  </defs><g mask="url(#tm7mf)">
+      <circle cx="322" cy="348" r="205" fill="url(#tm7s)" mask="url(#tm7ms)"/>
+      <path d="M124 414L146 388L166 366L182 340L196 312L210 284L226 256L238 246L250 252L262 268L276 240L292 208L312 190L326 170L338 160L350 172L362 196L372 222L384 246L398 268L414 266L430 262L444 276L458 302L474 334L490 362L506 390L524 422L508 408L494 384L478 356L462 330L448 316L436 312L428 318L420 334L414 312L404 300L392 312L384 300L378 270L366 252L352 240L340 232L330 236L326 262L318 286L304 276L296 300L286 330L278 304L268 316L258 336L250 312L240 304L228 318L216 342L204 366L194 356L184 372L170 386L156 398L140 410Z" fill="#17181B" stroke="#17181B" stroke-width="1.5" stroke-linejoin="round"/>
+    </g>
+    <path d="M210 496C198 468 198 436 210 412C218 396 226 386 235 375C236 412 248 452 267 496Z" fill="url(#tm7f)"/><path d="M277 496C258 462 248 428 250 396C252 360 266 330 285 307C290 336 298 372 314 408C328 440 346 468 360 496Z" fill="url(#tm7f)"/><path d="M370 496C350 462 326 432 312 400C298 368 296 326 310 296C322 272 342 256 367 250C356 270 352 296 358 330C364 364 388 398 410 428C428 452 432 476 421 496Z" fill="url(#tm7f)"/>
+    <path d="M112 470A210 37 0 1 0 532 470A210 37 0 1 0 112 470ZM128 464.4A194 23.4 0 1 1 516 464.4A194 23.4 0 1 1 128 464.4Z" fill="#127A3E" fill-rule="evenodd" mask="url(#tm7mr)"/></g></svg>

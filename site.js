@@ -19,8 +19,8 @@
     '.': ['.', '.', '.', '.', '.', '.', '#'],
     ' ': ['..', '..', '..', '..', '..', '..', '..']
   };
-  document.querySelectorAll('.dm[data-dm]').forEach(el => {
-    const str = el.dataset.dm, p = +el.dataset.pitch || 6, r = p * 0.36, out = [];
+  const dm = (el, str = el.dataset.dm) => {
+    const p = +el.dataset.pitch || 6, r = p * 0.36, out = [];
     let x = 0;
     for (const ch of str) {
       const g = GL[ch] || GL[' '], w = g[0].length;
@@ -32,7 +32,9 @@
     el.setAttribute('role', 'img');
     el.setAttribute('aria-label', str);
     el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" fill="currentColor" aria-hidden="true">${out.join('')}</svg>`;
-  });
+  };
+  document.querySelectorAll('.dm[data-dm]').forEach(el => dm(el));
+  window.lumeDM = dm;   // the projects page redraws its readouts
 
   /* hero: types a word, erases back to what the next word shares, types the rest */
   const cyc = document.querySelector('.cycle[data-words]');
@@ -56,13 +58,17 @@
 
   /* services: tabs with arrow-key support */
   const tabs = [...document.querySelectorAll('.tab')];
+  const phone = matchMedia('(max-width: 860px)');
   const select = t => {
+    // on phones the list is an accordion: keep the tapped row where the finger is
+    const before = phone.matches ? t.getBoundingClientRect().top : 0;
     tabs.forEach(x => {
       const on = x === t;
       x.setAttribute('aria-selected', String(on));
       x.tabIndex = on ? 0 : -1;
       document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
     });
+    if (phone.matches) window.scrollBy(0, t.getBoundingClientRect().top - before);
   };
   tabs.forEach((t, k) => {
     t.addEventListener('click', () => select(t));

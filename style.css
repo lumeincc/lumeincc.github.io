@@ -190,6 +190,26 @@ svg{display:block}
 .chat-cta:hover{color:var(--fg)}
 @media (max-width:860px){.talk{grid-template-columns:1fr}.talk .h2{position:static}}
 
+/* ---------- projects ---------- */
+.case{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(28px,5vw,80px);align-items:center;margin-top:clamp(40px,5vw,64px);color:inherit;text-decoration:none}
+.case-vis{position:relative;display:block;padding:0 clamp(48px,8vw,120px) clamp(36px,4.6vw,64px) 0}
+.cv-site{display:block;overflow:hidden;border-radius:20px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 50px 90px -40px rgba(0,0,0,.9)}
+.cv-site img{display:block;width:100%;height:auto}
+.cv-post{position:absolute;bottom:0;width:clamp(104px,14vw,200px);height:auto;border-radius:14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.9);transition:transform .35s cubic-bezier(.3,.7,.2,1)}
+.cv-post.a{right:0;z-index:1}
+.cv-post.b{right:clamp(76px,10.5vw,150px);bottom:clamp(-28px,-2vw,-14px)}
+.case:hover .cv-post.a{transform:translateY(-8px)}
+.case:hover .cv-post.b{transform:translateY(-4px)}
+.case-txt{display:grid;gap:16px;justify-items:start}
+.case-name{display:flex;align-items:center;gap:14px;font-size:clamp(28px,3vw,42px);line-height:1.1;letter-spacing:-.03em}
+.case-name img{width:clamp(28px,2.6vw,38px);height:auto}
+.case-what{max-width:40ch;font-size:clamp(17px,1.4vw,19px);color:var(--fg-2)}
+.case-go{display:inline-flex;align-items:center;gap:10px;margin-top:10px;font-family:var(--font-ui);font-size:15px;color:var(--fg-2);transition:color .2s}
+.case-go svg{width:15px;height:15px;transition:transform .2s}
+.case:hover .case-go{color:var(--fg)}
+.case:hover .case-go svg{transform:translateX(3px)}
+@media (max-width:860px){.case{grid-template-columns:1fr}.case-vis{padding-right:clamp(40px,12vw,80px)}}
+
 /* ---------- process ---------- */
 .track{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,3vw,40px);margin:clamp(40px,5vw,64px) 0 0;padding:44px 0 0;list-style:none}
 .track::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--line-2)}
@@ -232,9 +252,49 @@ svg{display:block}
 .foot .mark{display:flex;align-items:center;gap:9px}
 .foot .ring{width:13px;height:13px;box-shadow:inset 0 0 0 1.5px currentColor}
 
+/* ---------- phone ---------- */
+@media (max-width:860px){
+  /* services become an accordion: each panel opens right under its own row */
+  .svc{display:flex;flex-direction:column;gap:0;border-bottom:1px solid var(--line)}
+  .tabs{display:contents}
+  #t-web{order:1}#p-web{order:2}#t-app{order:3}#p-app{order:4}#t-mob{order:5}#p-mob{order:6}
+  #t-bot{order:7}#p-bot{order:8}#t-api{order:9}#p-api{order:10}#t-auto{order:11}#p-auto{order:12}
+  .tab{justify-content:space-between;padding:18px 0;border-top:1px solid var(--line);font-size:26px;white-space:normal;color:var(--fg-2)}
+  .tab::before{display:none}
+  .tab::after{content:"";flex:none;width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line-2);background:linear-gradient(currentColor,currentColor) center/11px 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 11px no-repeat;transition:transform .3s}
+  .tab[aria-selected="true"]::after{background:linear-gradient(currentColor,currentColor) center/11px 1.5px no-repeat;transform:rotate(180deg)}
+  .panel{padding:2px 0 28px}
+  .panel .lead{margin-top:22px}
+}
+@media (max-width:760px){
+  .top{height:64px;gap:14px}
+  .brand{font-size:17px}
+  .hero{min-height:calc(82vh - 64px);min-height:calc(82svh - 64px);align-content:center;padding-block:32px}
+  .hero h1{font-size:min(12vw,46px)}
+  .sec{padding-block:88px 0}
+  .msg.out + .msg.in{margin-top:14px}
+  .foot{padding-block:96px 32px}
+}
+@media (max-width:560px){
+  .mock{aspect-ratio:1/.92;border-radius:20px}
+  .toast{left:12px;max-width:none}
+  .m-app{grid-template-columns:1fr}
+  .m-app .side{display:none}
+  .m-mob{gap:18px;padding-inline:16px}
+  .m-mob .ph{width:118px}
+  .m-api pre{font-size:12px;line-height:1.6}
+  .log li{gap:12px;padding:10px 0}
+  .contact .btn{width:100%}
+}
+@media (max-width:420px){
+  .top{gap:12px}
+  .top .btn{padding:0 15px}
+  .top .btn svg{display:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .caret,.live-dot,.typing i,.track .run,.dots i{animation:none}
   .dots i{opacity:.5}
-  .btn{transition:none}
+  .btn,.cv-post{transition:none}
 }

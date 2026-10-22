@@ -1,0 +1,180 @@
+// LUME INC. — the Projects page: screenshots that scroll on their own, theme switches, the heat dial, the Instagram
+// viewer, the players, the slide deck, the before/after wipe, the business card and the Telegram bot demo.
+// Runs after site.js (it uses window.lumeDM for the dot-matrix readouts). Everything still reads without JS.
+(() => {
+  const M = document.currentScript.dataset.media;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const phone = matchMedia('(max-width: 860px)');
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const swipe = (el, back, fwd) => {
+    let x0 = null;
+    el.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') x0 = e.clientX; });
+    el.addEventListener('pointerup', e => { if (x0 === null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 40) (dx > 0 ? back : fwd)(); });
+    el.addEventListener('pointercancel', () => { x0 = null; });
+  };
+
+  /* screenshots scroll by themselves while on screen; a hand or a wheel on them stops it for a while */
+  if (!reduce) $$('[data-auto]').forEach(el => {
+    let visible = false, hold = 0, last = 0, pos = 0, end = 0;
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.25 }).observe(el);
+    const stop = () => { hold = performance.now() + 4000; };
+    ['pointerenter', 'pointermove', 'wheel', 'touchstart', 'focus'].forEach(ev => el.addEventListener(ev, stop, { passive: true }));
+    const speed = el.closest('.phone') ? 36 : 64;     // CSS px per second
+    const tick = now => {
+      const dt = Math.min(64, now - (last || now)); last = now;
+      if (visible && now > hold && !document.hidden) {
+        const max = el.scrollHeight - el.clientHeight;
+        if (Math.abs(pos - el.scrollTop) > 2) pos = el.scrollTop;   // the visitor scrolled it: carry on from there
+        if (max > 0 && pos >= max - 1) {
+          if (!end) end = now;
+          else if (now - end > 2000) { el.scrollTop = pos = 0; end = 0; hold = now + 1500; }
+        } else if (max > 0) { pos = Math.min(max, pos + speed * dt / 1000); el.scrollTop = pos; }
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+
+  /* dark / light: swap the screenshots of a block, keep the scroll position */
+  $$('[data-theme-set]').forEach(sec => {
+    const btns = $$('.seg button', sec);
+    btns.forEach(b => b.addEventListener('click', () => {
+      btns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      $$('img[data-tpl]', sec).forEach(im => { im.src = M + im.dataset.tpl.replace('{t}', b.dataset.t); });
+    }));
+  });
+
+  /* identity: drag the temperature, the steel colour follows */
+  const GLOW = [[500, '#3A0B07'], [600, '#6B1208'], [700, '#A1190B'], [800, '#CF2F10'], [900, '#EC5317'], [1000, '#F67E1F'], [1100, '#FBA62A'], [1200, '#FFCF4A'], [1300, '#FFF1BE']];
+  const glowAt = t => {
+    for (let i = 0; i < GLOW.length - 1; i++) {
+      const [t0, c0] = GLOW[i], [t1, c1] = GLOW[i + 1];
+      if (t <= t1) {
+        const k = Math.max(0, (t - t0) / (t1 - t0)), h = c => [1, 3, 5].map(j => parseInt(c.slice(j, j + 2), 16));
+        const a = h(c0), b = h(c1);
+        return '#' + a.map((v, j) => Math.round(v + (b[j] - v) * k).toString(16).padStart(2, '0')).join('');
+      }
+    }
+    return GLOW.at(-1)[1];
+  };
+  const heat = $('.heat');
+  if (heat) {
+    const r = $('.heat-range', heat), d = $('.heat-dm', heat);
+    const set = () => {
+      const v = +r.value;
+      heat.style.setProperty('--c', glowAt(v));
+      heat.style.setProperty('--r', glowAt(Math.max(v, 780)));   // the readout stays legible on graphite
+      heat.style.setProperty('--k', ((v - 500) / 800).toFixed(3));
+      if (window.lumeDM) window.lumeDM(d, String(v));
+    };
+    r.addEventListener('input', set); set();
+  }
+
+  /* instagram: the grid on the left, the open post on the right */
+  const igd = JSON.parse($('#ig-data')?.textContent || 'null');
+  if (igd) {
+    const fr = $('.ig-frame'), im = $('.ig-img'), vid = $('.ig-vid'), cap = $('.ig-cap'), dots = $('.ig-dots');
+    const prev = $('.prev', fr), next = $('.next', fr);
+    let cur = igd.posts[0], k = 0;
+    const draw = () => {
+      const v = !!cur.v, n = v ? 1 : cur.s.length;
+      im.hidden = v; vid.hidden = !v;
+      fr.classList.toggle('tallv', v || !!cur.story);
+      if (v) { if (!vid.src.includes(cur.v)) { vid.poster = M + cur.v + '.webp'; vid.src = M + cur.v + '.mp4'; } }
+      else { vid.pause(); im.src = M + cur.s[k]; im.alt = n > 1 ? `${cur.t} · ${k + 1}/${n}` : cur.t; if (cur.s[k + 1]) new Image().src = M + cur.s[k + 1]; }
+      prev.disabled = k === 0; next.disabled = k >= n - 1;
+      dots.innerHTML = n > 1 ? Array.from({ length: n }, (_, i) => `<i${i === k ? ' class="on"' : ''}></i>`).join('') : '';
+      cap.textContent = cur.t;
+    };
+    const open = (item, el) => {
+      cur = item; k = 0; draw();
+      $$('.ig-cell, .ig-hl button').forEach(c => c === el ? c.setAttribute('aria-current', 'true') : c.removeAttribute('aria-current'));
+      if (phone.matches) fr.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    };
+    $$('.ig-cell').forEach(c => c.addEventListener('click', () => open(igd.posts[+c.dataset.i], c)));
+    $$('.ig-hl button').forEach(b => b.addEventListener('click', () => open(igd.hl[+b.dataset.h], b)));
+    const step = d => { const n = cur.v ? 1 : cur.s.length; const j = Math.max(0, Math.min(n - 1, k + d)); if (j !== k) { k = j; draw(); } };
+    prev.addEventListener('click', () => step(-1));
+    next.addEventListener('click', () => step(1));
+    swipe(im, () => step(-1), () => step(1));
+    draw();
+  }
+
+  /* video: one plays at a time, with sound */
+  const allVideos = () => $$('video');
+  $$('.reel').forEach(r => {
+    const v = $('video', r), b = $('.play', r);
+    b.addEventListener('click', () => { r.classList.add('on'); v.controls = true; v.play(); });
+  });
+  document.addEventListener('play', e => { allVideos().forEach(o => { if (o !== e.target) o.pause(); }); }, true);
+
+  /* presentation: arrows, the scrubber, swipes */
+  const deck = $('.deck');
+  if (deck) {
+    const im = $('.deck-img', deck), r = $('.deck-range', deck), d = $('.deck-dm', deck), p = $('.prev', deck), n = $('.next', deck);
+    const N = +r.max, pad = i => String(i).padStart(2, '0');
+    const go = i => {
+      i = Math.max(1, Math.min(N, i)); r.value = i;
+      im.src = `${M}slides/${pad(i)}.webp`; im.alt = `${r.getAttribute('aria-label')} ${i}`;
+      if (window.lumeDM) window.lumeDM(d, pad(i));
+      p.disabled = i === 1; n.disabled = i === N;
+      if (i < N) new Image().src = `${M}slides/${pad(i + 1)}.webp`;
+    };
+    r.addEventListener('input', () => go(+r.value));
+    p.addEventListener('click', () => go(+r.value - 1));
+    n.addEventListener('click', () => go(+r.value + 1));
+    swipe(im, () => go(+r.value - 1), () => go(+r.value + 1));
+    p.disabled = true;
+  }
+
+  /* before / after: drag anywhere on the photo; the hidden range keeps it usable from the keyboard */
+  $$('.ba').forEach(b => {
+    const r = $('.ba-range', b);
+    const set = v => { r.value = v; b.style.setProperty('--x', v + '%'); };
+    const at = e => { const q = b.getBoundingClientRect(); set(Math.round(Math.max(0, Math.min(100, (e.clientX - q.left) / q.width * 100)))); };
+    let drag = false;
+    b.addEventListener('pointerdown', e => { drag = true; b.setPointerCapture(e.pointerId); at(e); });
+    b.addEventListener('pointermove', e => { if (drag) at(e); });
+    b.addEventListener('pointerup', () => { drag = false; });
+    b.addEventListener('pointercancel', () => { drag = false; });
+    r.addEventListener('input', () => set(+r.value));
+  });
+
+  /* the business card turns over */
+  $$('.vcard').forEach(c => c.addEventListener('click', () => c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'))));
+
+  /* the Telegram bot, answering from its own pages */
+  const bd = JSON.parse($('#bot-data')?.textContent || 'null');
+  if (bd) {
+    const log = $('.tg-log');
+    const add = (cls, html, tag = 'div') => { const m = document.createElement(tag); m.className = cls; m.innerHTML = html; log.append(m); return m; };
+    const down = () => log.scrollTo({ top: log.scrollHeight, behavior: reduce ? 'auto' : 'smooth' });
+    const show = key => {
+      const pg = bd.pages[key];
+      const m = add('tg-m in', `<img src="${M}${pg.p}" width="960" height="540" alt="" loading="lazy"><p>${pg.t}</p>`);
+      m.querySelector('img').addEventListener('load', down, { once: true });
+      const keys = key === 'home' ? pg.b : [...pg.b, 'home'];
+      if (keys.length) {
+        const kb = add('tg-kb', '');
+        keys.forEach(k => {
+          const b = document.createElement('button');
+          b.type = 'button'; b.textContent = bd.titles[k];
+          if (k === 'lead' || k === 'home' || keys.length === 1) b.classList.add('wide');
+          b.addEventListener('click', () => press(k, kb));
+          kb.append(b);
+        });
+      }
+      if (key === 'lead') add('tg-m note', bd.note);
+      while (log.children.length > 40) log.firstElementChild.remove();
+      down();
+    };
+    const press = (k, kb) => {
+      kb.setAttribute('aria-disabled', 'true');
+      add('tg-m out', '').textContent = bd.titles[k];
+      const ty = add('tg-typing', '<i></i><i></i><i></i>');
+      down();
+      setTimeout(() => { ty.remove(); show(k); }, reduce ? 0 : 650);
+    };
+    show('home');
+  }
+})();
