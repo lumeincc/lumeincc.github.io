@@ -1,5 +1,5 @@
 // LUME INC. — the Projects page: screenshots that scroll on their own, theme switches, the heat dial, the Instagram
-// viewer, the slide deck, the business card and the Telegram bot demo.
+// viewer, the slide deck, the business card, the Telegram bot demo and the small project cards.
 // Runs after site.js (it uses window.lumeDM for the dot-matrix readouts). Everything still reads without JS.
 (() => {
   const M = document.currentScript.dataset.media;
@@ -119,6 +119,18 @@
     p.disabled = true;
   }
 
+
+  /* small project cards that change by themselves while on screen */
+  if (!reduce) $$('[data-cycle]').forEach(box => {
+    const ims = $$('img', box);
+    let i = 0, vis = false;
+    if (ims.length < 2) return;
+    new IntersectionObserver(([e]) => { vis = e.isIntersecting; }, { threshold: 0.3 }).observe(box);
+    setInterval(() => {
+      if (!vis || document.hidden) return;
+      ims[i].classList.remove('on'); i = (i + 1) % ims.length; ims[i].classList.add('on');
+    }, 3200);
+  });
 
   /* the business card turns over */
   $$('.vcard').forEach(c => c.addEventListener('click', () => c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'))));

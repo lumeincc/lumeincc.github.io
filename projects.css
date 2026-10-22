@@ -172,9 +172,46 @@
 .j-stage .phone{left:0;bottom:clamp(-60px,-4vw,-24px);width:clamp(140px,17vw,240px);aspect-ratio:585/1266}
 .j-stage .browser .screen{aspect-ratio:16/10}
 
+/* ---------- the client's word ---------- */
+.review{display:grid;grid-template-columns:minmax(0,.6fr) minmax(0,1.4fr);gap:clamp(28px,5vw,88px);align-items:center;margin:0}
+.rv-photo{display:block;width:100%;height:auto;border-radius:24px;background:var(--card)}
+.review blockquote{margin:0}
+.review blockquote p{margin:0;font-size:clamp(23px,2.5vw,36px);line-height:1.28;letter-spacing:-.02em;text-wrap:pretty}
+:lang(ru) .review blockquote p::before{content:"«"}:lang(ru) .review blockquote p::after{content:"»"}
+:lang(en) .review blockquote p::before{content:"“"}:lang(en) .review blockquote p::after{content:"”"}
+.review figcaption{display:grid;gap:3px;margin-top:28px;font-family:var(--font-ui)}
+.review figcaption b{font-weight:400;font-size:16px}
+.review figcaption span{font-size:14px;color:var(--fg-3)}
+.rv-num{display:flex;align-items:flex-end;gap:18px;margin:clamp(40px,4.6vw,64px) 0 0;font-family:var(--font-ui);font-size:16px;line-height:1.35;color:var(--fg-2)}
+.rv-num .dm{flex:none;color:var(--accent-2)}
+.rv-num .dm svg{width:auto;height:clamp(44px,4.4vw,60px)}
+
+/* ---------- more projects ---------- */
+.more{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,56px);align-items:start;margin-top:clamp(40px,5vw,64px)}
+.mp{min-width:0}
+.mp h3{margin:26px 0 0;font-weight:300;font-size:clamp(24px,2.2vw,30px);line-height:1.15;letter-spacing:-.025em}
+.mp p{margin:10px 0 0;max-width:48ch;color:var(--fg-2)}
+.mp a{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-family:var(--font-ui);font-size:14px;color:var(--fg-2);text-decoration:none;transition:color .2s}
+.mp a:hover{color:var(--fg)}
+.mp a svg{width:14px;height:14px}
+.mp-quote{margin:30px 0 0}
+.mp-quote blockquote{margin:0}
+.mp-quote blockquote p{margin:0;max-width:46ch;font-size:clamp(17px,1.4vw,19px);line-height:1.45;color:var(--fg)}
+:lang(ru) .mp-quote blockquote p::before{content:"«"}:lang(ru) .mp-quote blockquote p::after{content:"»"}
+:lang(en) .mp-quote blockquote p::before{content:"“"}:lang(en) .mp-quote blockquote p::after{content:"”"}
+.mp-quote figcaption{display:flex;align-items:center;gap:12px;margin-top:16px;font-family:var(--font-ui);font-size:13px;color:var(--fg-3)}
+.mp-quote figcaption img{width:44px;height:44px;border-radius:50%}
+.mp-quote figcaption b{display:block;font-weight:400;font-size:14px;color:var(--fg)}
+.mp-vis{position:relative;overflow:hidden;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 40px 80px -40px rgba(0,0,0,.9)}
+.cyc{aspect-ratio:16/10.2}
+.cyc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+.cyc img.on{opacity:1}
+.mp .browser .screen{aspect-ratio:16/8.6}
+
 /* ---------- narrow screens ---------- */
 @media (max-width:860px){
-  .pj-head,.id,.ig,.bot{grid-template-columns:minmax(0,1fr)}
+  .pj-head,.id,.ig,.bot,.review,.more{grid-template-columns:minmax(0,1fr)}
+  .rv-photo{max-width:300px}
   .pj-head{align-items:start}
   .ig-view{position:static;order:-1}
   .ig-grid{max-height:none}

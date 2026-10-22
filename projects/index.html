@@ -21,8 +21,8 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../fonts/inter-tight-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/jost-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../style.css?v=23">
-<link rel="stylesheet" href="../projects.css?v=23">
+<link rel="stylesheet" href="../style.css?v=24">
+<link rel="stylesheet" href="../projects.css?v=24">
 </head>
 <body class="pj">
 
@@ -64,7 +64,7 @@
   <section class="sec wrap" id="site" data-theme-set>
     <div class="pj-head">
       <h2 class="h2">Website</h2>
-      <div><p class="lead">A one-page site on Tilda. Three languages, dark and light themes, photo galleries and a live drawing of how gas moves through the furnace. Requests go straight to the manager.</p><div class="seg" role="group" aria-label="Theme"><button type="button" data-t="dark" aria-pressed="true">Dark</button><button type="button" data-t="light" aria-pressed="false">Light</button></div></div>
+      <div><div class="seg" role="group" aria-label="Theme"><button type="button" data-t="dark" aria-pressed="true">Dark</button><button type="button" data-t="light" aria-pressed="false">Light</button></div></div>
     </div>
     <div class="site-stage">
       <div class="browser">
@@ -189,6 +189,43 @@
     </div>
   </section>
 
+  <!-- the client's word -->
+  <section class="sec wrap" id="review">
+    <figure class="review">
+      <img src="../projects/temires/director.webp" width="720" height="900" alt="Egor Muravyev" loading="lazy" decoding="async" class="rv-photo">
+      <div class="rv-body">
+        <blockquote><p>We are a factory, and websites and social media were never our strong side. The LUME INC. team took all of it on: the site, the brand, the Telegram bot, the deck, the documents, even the orders journal for the shop floor. Now we have something to show a client, and requests come in on their own.</p></blockquote>
+        <figcaption><b>Egor Muravyev</b><span>Director, TemirEnergoStroy</span></figcaption>
+        <p class="rv-num"><span class="dm" data-dm="20" data-pitch="8">20</span><span>requests in the first month — twice as many as before</span></p>
+      </div>
+    </figure>
+  </section>
+
+  <!-- smaller projects -->
+  <section class="sec wrap" id="more">
+    <h2 class="h2">More projects</h2>
+    <div class="more">
+      <article class="mp">
+        <div class="mp-vis cyc" data-cycle><img src="../projects/docscanner/welcome-en.webp" width="960" height="540" alt="" loading="lazy" decoding="async" class="on"><img src="../projects/docscanner/id-en.webp" width="960" height="540" alt="" loading="lazy" decoding="async"><img src="../projects/docscanner/tips-en.webp" width="960" height="540" alt="" loading="lazy" decoding="async"></div>
+        <h3>Doc Scanner</h3>
+        <p>A Telegram bot that turns a photo of a document into a clean PDF: it finds the page edges, straightens the perspective, removes shadows, puts both sides of an ID card on one A4 sheet and reads text in Russian, Kazakh and English.</p>
+        <a href="https://t.me/docsscanner_bot">@docsscanner_bot<svg aria-hidden="true"><use href="#ne"/></svg></a>
+      </article>
+      <article class="mp">
+        <div class="mp-vis browser">
+          <div class="bar"><i></i><i></i><i></i><span>anna-shultseva</span></div>
+          <div class="screen" data-auto><img src="../projects/anna/desk.webp" width="1200" height="13121" alt="" loading="lazy" decoding="async"></div>
+        </div>
+        <h3>Anna Shultseva</h3>
+        <p>A portfolio site for a creative producer: her cases for big brands, her roles and contacts on one page.</p>
+        <figure class="mp-quote">
+          <blockquote><p>I wanted a site I could send instead of a heavy PDF deck. They put all my projects on one page: calm, neat and easy to read on a phone.</p></blockquote>
+          <figcaption><img src="../projects/anna/anna.webp" width="240" height="240" alt="" loading="lazy" decoding="async"><span><b>Anna Shultseva</b>creative producer</span></figcaption>
+        </figure>
+      </article>
+    </div>
+  </section>
+
   <!-- contact -->
   <section class="sec wrap" id="contact">
     <div class="contact">
@@ -212,7 +249,7 @@
   <span class="lang"><a href="./" aria-current="page" lang="en">EN</a><span aria-hidden="true">/</span><a href="../ru/projects/" hreflang="ru" lang="ru">RU</a></span>
 </footer>
 
-<script src="../site.js?v=23"></script>
-<script src="../projects.js?v=23" data-media="../projects/temires/"></script>
+<script src="../site.js?v=24"></script>
+<script src="../projects.js?v=24" data-media="../projects/temires/"></script>
 </body>
 </html>
