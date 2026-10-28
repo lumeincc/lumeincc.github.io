@@ -230,6 +230,10 @@ svg{display:block}
 .pj-head{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,5vw,88px);align-items:end;margin-bottom:clamp(36px,4.6vw,60px)}
 .pj-head .lead{margin:0;max-width:52ch}
 .pj-head .btn{margin-top:22px}
+#products .pj-head{align-items:center;margin-bottom:clamp(28px,3.4vw,44px)}
+.prod-id{display:grid;justify-items:start;gap:4px}
+.prod-id img{width:clamp(76px,8vw,112px);height:auto;margin-left:calc(clamp(76px,8vw,112px) * -.08)}
+.prod-id h2{margin:0;font-family:var(--font-ui);font-weight:400;font-size:15px;letter-spacing:.14em;color:var(--fg-2)}
 .browser{position:relative;overflow:hidden;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 50px 90px -40px rgba(0,0,0,.9)}
 .browser .bar{display:flex;align-items:center;gap:6px;height:42px;padding:0 16px;font-family:var(--font-ui);font-size:12px}
 .browser .bar i{width:9px;height:9px;border-radius:50%;background:var(--surface-2)}
