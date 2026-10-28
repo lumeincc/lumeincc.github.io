@@ -1,4 +1,4 @@
-// LUME INC. — the Projects page: screenshots that scroll on their own, theme switches, the heat dial, the Instagram
+// LUME INC. — the Projects page: theme switches, the heat dial, the Instagram
 // viewer, the slide deck, the business card, the Telegram bot demo and the small project cards.
 // Runs after site.js (it uses window.lumeDM for the dot-matrix readouts). Everything still reads without JS.
 (() => {
@@ -12,28 +12,6 @@
     el.addEventListener('pointerup', e => { if (x0 === null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 40) (dx > 0 ? back : fwd)(); });
     el.addEventListener('pointercancel', () => { x0 = null; });
   };
-
-  /* screenshots scroll by themselves while on screen; a hand or a wheel on them stops it for a while */
-  if (!reduce) $$('[data-auto]').forEach(el => {
-    let visible = false, hold = 0, last = 0, pos = 0, end = 0;
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.25 }).observe(el);
-    const stop = () => { hold = performance.now() + 4000; };
-    ['pointerenter', 'pointermove', 'wheel', 'touchstart', 'focus'].forEach(ev => el.addEventListener(ev, stop, { passive: true }));
-    const speed = el.closest('.phone') ? 36 : 64;     // CSS px per second
-    const tick = now => {
-      const dt = Math.min(64, now - (last || now)); last = now;
-      if (visible && now > hold && !document.hidden) {
-        const max = el.scrollHeight - el.clientHeight;
-        if (Math.abs(pos - el.scrollTop) > 2) pos = el.scrollTop;   // the visitor scrolled it: carry on from there
-        if (max > 0 && pos >= max - 1) {
-          if (!end) end = now;
-          else if (now - end > 2000) { el.scrollTop = pos = 0; end = 0; hold = now + 1500; }
-        } else if (max > 0) { pos = Math.min(max, pos + speed * dt / 1000); el.scrollTop = pos; }
-      }
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  });
 
   /* dark / light: swap the screenshots of a block, keep the scroll position */
   $$('[data-theme-set]').forEach(sec => {
